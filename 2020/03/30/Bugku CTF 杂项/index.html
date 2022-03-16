@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zn-ch" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bugku CTF 杂项 - 和音说</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="和音说,"> 
+    <meta name="description" content="流离之人追逐幻影,签到扫描二维码，关注Bugku微信公众号，在公众号里输入“flag”即得到flag。
+这是一张单纯的图片
+1&amp;amp;#107;&amp;amp;#101;&amp;amp;#121;&amp;amp;#123;&amp;amp;,"> 
+    <meta name="author" content="和音"> 
+    <link rel="alternative" href="atom.xml" title="和音说" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Bugku CTF 杂项 - 和音说"/>
+    <meta name="twitter:description" content="流离之人追逐幻影,签到扫描二维码，关注Bugku微信公众号，在公众号里输入“flag”即得到flag。
+这是一张单纯的图片
+1&amp;amp;#107;&amp;amp;#101;&amp;amp;#121;&amp;amp;#123;&amp;amp;,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="和音说"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="Bugku CTF 杂项 - 和音说"/>
+    <meta property="og:description" content="流离之人追逐幻影,签到扫描二维码，关注Bugku微信公众号，在公众号里输入“flag”即得到flag。
+这是一张单纯的图片
+1&amp;amp;#107;&amp;amp;#101;&amp;amp;#121;&amp;amp;#123;&amp;amp;,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">和音说</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://glan.site"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Bugku CTF 杂项</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Bugku CTF 杂项</h1>
+        <div class="stuff">
+            <span>三月 30, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p>扫描二维码，关注Bugku微信公众号，在公众号里输入“flag”即得到flag。</p>
+<h2 id="这是一张单纯的图片"><a href="#这是一张单纯的图片" class="headerlink" title="这是一张单纯的图片"></a>这是一张单纯的图片</h2><p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200330224134844.png" alt="image-20200330224134844"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#107;&amp;#101;&amp;#121;&amp;#123;&amp;#121;&amp;#111;&amp;#117;&amp;#32;&amp;#97;&amp;#114;&amp;#101;&amp;#32;&amp;#114;&amp;#105;&amp;#103;&amp;#104;&amp;#116;&amp;#125;</span><br></pre></td></tr></table></figure>
+
+<p>解码平台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://tool.chinaz.com/tools/htmlencode.aspx</span><br></pre></td></tr></table></figure>
+
+<p>HtmlDecode解码后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key&#123;you are right&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="隐写"><a href="#隐写" class="headerlink" title="隐写"></a>隐写</h2><blockquote>
+<h3 id="png格式"><a href="#png格式" class="headerlink" title="png格式"></a>png格式</h3><p>png格式主要由六大块组成：<strong>文件头</strong>、<strong>HDR块</strong>、<strong>PLTE块</strong>、<strong>tRNS块</strong>、<strong>IDAT块</strong>、<strong>文件尾</strong></p>
+<p>文件头一般是89 50 4E 47 0D 0A 1A 0A</p>
+<p>HDR块是png中用来描述图片的基本信息，格式是4字节 Chunk_Length、4字节 Chunk_Type、13字节 Chunk_data、4字节 Chunk_crc</p>
+<p><strong>Chunk Length</strong>: 内容一般是13,决定了 Chunk_Data的大小</p>
+<p><strong>Chunk_Type</strong>: 内容为49 48 44 52,代表”HDR”</p>
+<p><strong>Chunk Data</strong>: 4字节width,4字节 Heigh，1字节 BitDepth，1字节 ColorType，1字节  Compression Method，1字节 FilterMethod，1字节 Interlace Method</p>
+<p><strong>Chunk CRC</strong>: 把 Chunk_Type和 Chunk_Data合起来进行CRC校验</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200330224016283.png" alt="image-20200330224016283"></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200330225635486.png" alt="image-20200330225635486"></p>
+<p>PNG标识符    89 50 4E 47 0D 0A 1A 0A</p>
+<p>IHDR头块长为13    00 00 00 0D </p>
+<p>IHDR标识    49 48 44 52 </p>
+<p>图像的宽    00 00 01 F4 (500像素)</p>
+<p>图像的高    00 00 01 A4 (420像素)</p>
+<p>CRC校验    CB D6 DF 8A</p>
+<h3 id="CRC循环冗余校验"><a href="#CRC循环冗余校验" class="headerlink" title="CRC循环冗余校验"></a>CRC循环冗余校验</h3><p><video src="/video/[CRC校验]手算与直观演示.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"> your browser does not support the video tag </video></p>
+</blockquote>
+<p>解题：原图片的高度被更改了，IHDR文件头数据块，更改高度，把“A4”改成“F4”，保存，就可以看到被隐藏的flag<br><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/F9kxb7Y.png" alt="img"></p>
+<p>修改成功</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/Eao2ZCH.png" alt="img"></p>
+<p><code>BUGKU&#123;a1e5aSA&#125;</code></p>
+<h2 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h2><p>题目地址<a target="_blank" rel="noopener" href="http://120.24.86.145:8002/misc/telnet/1.zip">http://120.24.86.145:8002/misc/telnet/1.zip</a></p>
+<p>wireshark打开，查看tcp数据流</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/DtuESFV-1585581117817.png" alt="img"></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/r0xMz6X-1585581133752.png" alt="img"></p>
+<p>得到flag{d316759c281bf925d600be698a4973d5}</p>
+<h2 id="眼见非实-ISCCCTF"><a href="#眼见非实-ISCCCTF" class="headerlink" title="眼见非实(ISCCCTF)"></a>眼见非实(ISCCCTF)</h2><p>题目地址<a target="_blank" rel="noopener" href="http://ctf.bugku.com/files/919ee4ea1658c3e3ef8b59b67f298470/zip">http://ctf.bugku.com/files/919ee4ea1658c3e3ef8b59b67f298470/zip</a></p>
+<p>下载得到一个名为 zip 的文件，根据文件名的提示，给它加 .zip 的后缀</p>
+<p>果然成功打开，打开后发现<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/ftqSTAK.png" alt="img"></p>
+<p>解压后发现文件错误，本着试一试的原则，后缀名改成 .zip<br>结果还真能打开，压缩包里是<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/yc7K9hi.png" alt="img"><br>查看文件，最终在 <em>眼见非实.zip\眼见非实\word\document.xml</em> 这个文件中找到flag<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/yiz4PTU.png" alt="img"></p>
+<p>flag{F1@g}</p>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><p>文件这么多怎么找呢？可以用everything的高级搜索，搜索文件内容</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200330232303214.png" alt="image-20200330232303214"></p>
+<h2 id="啊哒"><a href="#啊哒" class="headerlink" title="啊哒"></a>啊哒</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/85683661">Binwalk工具的详细使用说明</a></p>
+</blockquote>
+<p>用binwalk打开图片发现里面有zip文件</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200330235921186.png" alt="image-20200330235921186"></p>
+<p>利用dd命令分割一下<code>dd if=ada.jpg of=adazip skip=218773 bs=1</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331000426142.png" alt="image-20200331000426142"></p>
+<blockquote>
+<h3 id="linux中dd命令详解"><a href="#linux中dd命令详解" class="headerlink" title="linux中dd命令详解"></a>linux中dd命令详解</h3><p>dd：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.if=文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if=input file &gt;</span><br><span class="line">2.of=文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of=output file &gt;</span><br><span class="line">3.skip=blocks：从输入文件开头跳过blocks个块后再开始复制。</span><br><span class="line">4.bs=bytes：同时设置读入/输出的块大小为bytes个字节。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>提取出来的压缩包需要密码，只能在图片本身找线索了</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331001042071.png" alt="image-20200331001042071"></p>
+<p>注意到属性有一个莫名其妙的16进制的参数<code>73646E6973635F32303138</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331001235941.png" alt="image-20200331001235941"></p>
+<p>尝试转化为ASCII，结果为<code>sdnisc_2018</code>,此为压缩包密码</p>
+<p><a target="_blank" rel="noopener" href="http://www.ab126.com/goju/1711.html">ASCII 在线转换器</a></p>
+<p>将zip解压，输入刚才的密码得到flag<code>flag&#123;3XiF_iNf0rM@ti0n&#125;</code></p>
+<h2 id="又一张图片，还单纯吗"><a href="#又一张图片，还单纯吗" class="headerlink" title="又一张图片，还单纯吗"></a>又一张图片，还单纯吗</h2><p>保存图片，直接扔 binwalk 里,发现里面包含两个图片，一个jpg格式，一个tiff格式</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331004443767.png" alt="image-20200331004443767"></p>
+<p>foremost分离文件<code>foremost 2.jpg</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331004859305.png" alt="image-20200331004859305"></p>
+<p>得到flag<code>falg&#123;NSCTF_e6532a34928a3d1dadd0b049d5a3cc57&#125;</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331005016003.png" alt="image-20200331005016003"></p>
+<blockquote>
+<h3 id="foremost使用简介"><a href="#foremost使用简介" class="headerlink" title="foremost使用简介"></a>foremost使用简介</h3><p>安装：<a target="_blank" rel="noopener" href="http://foremost.sourceforge.net/">Foremost官网</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LINUX:</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">tar zxvf foremost-xx.tar.gz</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash"><span class="built_in">cd</span> foremost-xx</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">make</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">make install</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="猜"><a href="#猜" class="headerlink" title="猜"></a>猜</h2><p>题目提示flag是某人名字全拼</p>
+<p>图片又是一张不全的照片<br>直接百度识图，搜到原图<br><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/wnxCabR.png" alt="img"></p>
+<p>得到flag<code>key&#123;liuyifei&#125;</code></p>
+<h2 id="宽带信息泄露"><a href="#宽带信息泄露" class="headerlink" title="宽带信息泄露"></a>宽带信息泄露</h2><p>下载得到一个二进制文件，上网搜索得知需要用RouterPassView这个软件打开，题目提示flag为宽带用户名，则在里面查找user，找到username。<code>flag&#123;053700357621&#125;</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/tGrk6jY.png" alt="img"></p>
+<h2 id="隐写2"><a href="#隐写2" class="headerlink" title="隐写2"></a>隐写2</h2><p>把这张傻子图扔到binwalk上</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331015629229.png" alt="image-20200331015629229"></p>
+<p>foremost分开，有一个压缩包，里面有一个加密的压缩包和一张图片</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/E1VlWV1.png" alt="img"></p>
+<p>分析提示，三个数，一个国王，一个女神，一个骑士，又说斗地主……那不就….还是直接暴力破解吧</p>
+<p>先做个字典000~999,写了个垃圾的py(但是能用啊)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&quot;num.txt&quot;</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        <span class="keyword">for</span> z <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&quot;a&quot;</span>) <span class="keyword">as</span> file_obj:</span><br><span class="line">                file_obj.write(<span class="built_in">str</span>(x)+<span class="built_in">str</span>(y)+<span class="built_in">str</span>(z)+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">file_obj.close()</span><br></pre></td></tr></table></figure>
+
+<p>暴力破解，试了好多，终于找到一个速度快又好用的工具[Advanced Archive Password Recovery](<a target="_blank" rel="noopener" href="http://dl-t1.wmzhe.com/15/15056/Advanced">http://dl-t1.wmzhe.com/15/15056/Advanced</a> Archive Password Recovery 4.54.exe)</p>
+<p>密码871</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/TBEoJSQ.png" alt="img"></p>
+<blockquote>
+<h3 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h3><p>kali下可以用Fcrackzip破解压缩文件密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-get install fcrackzip</span><br><span class="line">fcrackzip -b -l 3 -c &#x27;1&#x27; -u flag.rar</span><br><span class="line"></span><br><span class="line">-b 暴力破解</span><br><span class="line">&gt;-l 指定密码长度</span><br><span class="line">-c 指定密码类型（&#x27;a&#x27;为字母	&#x27;1&#x27;为数字	&#x27;!&#x27;为特殊字符）</span><br><span class="line">&gt;-u 压缩包名字</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>拿到图片，winhex打开，在底部发现base64编码的flag</p>
+<p><code>f1@g&#123;eTB1IEFyZSBhIGhAY2tlciE=&#125;</code></p>
+<p>base64解密得到y0u Are a h@cker!</p>
+<p>最后输入<code>fl@g&#123;y0u Are a h@cker!&#125;</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/897692888725344/949441536192576">base64</a>是一种用64个字符来表示任意二进制数据的方法</p>
+</blockquote>
+<h2 id="多种方法解决"><a href="#多种方法解决" class="headerlink" title="多种方法解决"></a>多种方法解决</h2><p>得到一个</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/jxex9qD.png" alt="img"></p>
+<p>打不开，后缀改成 .txt 打开是提示图片格式和一长串 base64</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331022803401.png" alt="image-20200331022803401"></p>
+<p>那就base64转图片解密</p>
+<p>得到一张二维码</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/Xsi5dud.png" alt="img"></p>
+<p>识别后得到<code>KEY&#123;dca57f966e4e4e31fd5b15417da63269&#125;</code></p>
+<h2 id="闪的好快"><a href="#闪的好快" class="headerlink" title="闪的好快"></a>闪的好快</h2><p>这是一道二维码的题目。保存图片祭出神器StegSolve。然后Analysis-&gt;Frame Browser。这里发现是18张图。也就是18张图片。</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331023254916.png" alt="image-20200331023254916"></p>
+<p>一个挨着一个扫的。<br>扫出来的结果是<code>SYC&#123;F1aSh_so_f4sT&#125;</code></p>
+<h2 id="白哥的鸽子"><a href="#白哥的鸽子" class="headerlink" title="白哥的鸽子"></a>白哥的鸽子</h2><p>先丢到binwalk分析，有个小东西，用foremost没分离出什么文件</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331024321707.png" alt="image-20200331024321707"></p>
+<p>拿到Winhex看看</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331024505111.png" alt="image-20200331024505111"></p>
+<p>结尾处出现规律字符，有flag字符出现<code>fg2ivyo&#125;l&#123;2s3_o@aw__rcl@</code></p>
+<p>推测栅栏密码，拿去解密。平台：<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">栅栏密码加密解密</a></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331024804075.png" alt="image-20200331024804075"></p>
+<p>结果<code>flag&#123;w22_is_v3ry_cool&#125;</code></p>
+<blockquote>
+<h3 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a>栅栏密码</h3><p>​    栅栏密码是一种简单的移动字符位置的加密方法，规则简单，容易破解。栅栏密码的加密方式：把文本按照一定的字数分成多个组，取每组第一个字连起来得到密文1，再取每组第二个字连起来得到密文2……最后把密文1、密文2……连成整段密文。例如：</p>
+<p>明文：栅栏密码加密规则示例<br>每组字数：5</p>
+<p>按照字数先把明文分成：<br>栅栏密码加<br>密规则示例</p>
+<p>先取每组第一个字：栅密<br>再取每组第二个字：栏规<br>……</p>
+<p>最后得到“栅密栏规密则码示加例”。</p>
+<p>解密则反推：<br>密文被分成2个字一组：<br>栅密<br>栏规<br>密则<br>码示<br>加例</p>
+<p>先取每组第一个字：栅栏密码加<br>再取每组第二个字：密规则示例</p>
+<p>最后得到“栅栏密码加密规则示例”。</p>
+</blockquote>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><p>不知道这道题怎么出的，解压，直接notepad++查看文件搜索 key 就得到key{feb81d3834e2423c9903f4755464060b}</p>
+<h2 id="隐写3"><a href="#隐写3" class="headerlink" title="隐写3"></a>隐写3</h2><p>下载到一个压缩包，解压的到一个png文件</p>
+<p>首先用tweakpng分析，提示CRC不对，不出意外应该是在宽或者高上做了手脚</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331121703005.png" alt="image-20200331121703005"></p>
+<p>Winhex打开，随便在高上改了一个比较大的数字</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331121905992.png" alt="image-20200331121905992"></p>
+<p>Windows画图工具打开，得到flag<code>flag&#123;He1l0_d4_ba1&#125;</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331122051534.png" alt="image-20200331122051534"></p>
+<h2 id="做个游戏-08067CTF"><a href="#做个游戏-08067CTF" class="headerlink" title="做个游戏(08067CTF)"></a>做个游戏(08067CTF)</h2><h2 id="想蹭网先解开密码"><a href="#想蹭网先解开密码" class="headerlink" title="想蹭网先解开密码"></a>想蹭网先解开密码</h2><p>文件是.cap，扔到wireshark里看一下，基本上都是802.11协议的包，WiFi认证过程重点在WPA的四次握手包，也就是eapol协议的包，过滤一下<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/uhxthkv.png" alt="img"></p>
+<p>aircrack-ng 进行破解<br>先生成字典</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">filename = &quot;num.txt&quot;</span><br><span class="line">for x in range(10):</span><br><span class="line">    for y in range(10):</span><br><span class="line">        for z in range(10):</span><br><span class="line">            for n in range(10):</span><br><span class="line">                with open(filename, &quot;a&quot;) as file_obj:</span><br><span class="line">                    file_obj.write(&#x27;1391040&#x27;+str(x)+str(y)+str(z)+str(n)+&#x27;\n&#x27;)</span><br><span class="line">file_obj.close()</span><br></pre></td></tr></table></figure>
+
+<p><code>aircrack-ng -w num.txt wifi.cap</code>开始破解</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/Qk5Eju4.png" alt="img"></p>
+<blockquote>
+<p>Aircrack-ng是一款用于破解无线802.11WEP及WPA-PSK加密的工具</p>
+<p>WEP and WPA-PSK cracking options:</p>
+<pre><code>  -w &lt;words&gt; : path to wordlist(s) filename(s)
+</code></pre>
+</blockquote>
+<p><code>flag&#123;13910407686&#125;</code></p>
+<h2 id="Linux2"><a href="#Linux2" class="headerlink" title="Linux2"></a>Linux2</h2><p>又是linux，以bugku一贯的niaoxing，Winhex搜索key然后……然后就找到了….</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/image-20200331135657164.png" alt="image-20200331135657164"></p>
+<p><code>KEY&#123;24f3627a86fc740a7f36ee2c7a1c124a&#125; </code></p>
+<h2 id="账号被盗了"><a href="#账号被盗了" class="headerlink" title="账号被盗了"></a>账号被盗了</h2><h2 id="细心的大象"><a href="#细心的大象" class="headerlink" title="细心的大象"></a>细心的大象</h2><p>压缩包里有一张图片，扔到binwalk上发现<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/IZS9cP8.png" alt="img"></p>
+<p>分离后是一个压缩包，里面有第二张图片但是需要密码，<br>查看了下图片1的属性，果然找到了备注一串字符<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/ZsNBoQG.png" alt="img"><br>一看就是经过base64加密的，拿去解密后就是图片2的密码</p>
+<p>用winhex打开将标记的A4修改为F4<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/3O78QAI.png" alt="img"></p>
+<p>打开就会发现flag<code>BUGKU&#123;a1e5aSA&#125;</code></p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/1OFwGmJ.png" alt="img"></p>
+<p>卧槽，这题做过？？？flag都一样。。。</p>
+<h2 id="爆照-08067CTF"><a href="#爆照-08067CTF" class="headerlink" title="爆照(08067CTF)"></a>爆照(08067CTF)</h2><p>一张穹妹的图片，binwalk扫一下后<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/36H9LAD.png" alt="img"></p>
+<p>分离后得到一个压缩包</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/nL6gEd7.png" alt="img"></p>
+<p>将这些文件一个一个binwalk,发现有三个文件是被修改的图片</p>
+<p><img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/20180607165234150.png" alt="img"></p>
+<p>88-&gt;(扫描)-&gt;bilibili</p>
+<p>888-&gt;(右键属性)-&gt;(c2lsaXNpbGk&#x3D;)base64解码-&gt;silisili</p>
+<p>8888里面还有一个zip压缩包，修改后缀为zip，解压得到一个二维码-&gt;扫描-&gt;panama</p>
+<p>而且flag的格式是flag{xxx_xxx_xxx}，gif提示排序，那就按顺序排在一起，使用”_”隔开,得到flag<br><code>flag&#123;bilibili_silisili_panama&#125;</code></p>
+<h2 id="妹子的陌陌"><a href="#妹子的陌陌" class="headerlink" title="妹子的陌陌"></a>妹子的陌陌</h2><p>下载后是一张照片binwalk发现有压缩包，改后缀.zip打开有一个.txt文件，需要密码解压，图片上有<code>喜欢我吗.</code>五个字符，密码就是这个</p>
+<p>解压后得到<img src="/img/Bugku%20CTF%20%E6%9D%82%E9%A1%B9/fQDcyNX.png" alt="img"></p>
+<p>解密第一个摩斯密码得到HTTP&#x2F;&#x2F;ENCODE.CHAHUO.COM&#x2F;<br>构造成url<br><a target="_blank" rel="noopener" href="http://encode.chahuo.com/">HTTP://ENCODE.CHAHUO.COM/</a></p>
+<p>在这个网站中选择AES解密U2FsdGVkX18tl8Yi7FaGiv6jK1SBxKD30eYb52onYe0&#x3D;</p>
+<p>得到momoj2j.png</p>
+<p>访问<br><a target="_blank" rel="noopener" href="http://c.bugku.com/momoj2j.png">http://c.bugku.com/momoj2j.png</a></p>
+<p>得到二维码，扫描后得到flag，要是扫不出来就将图片反相做一下再扫</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="%5Bhttps://www.abelche.com/2018/08/26/Writeup/WP-Bugku-%E6%9D%82%E9%A1%B9%E7%B3%BB%E5%88%97/%5D(https://www.abelche.com/2018/08/26/Writeup/WP-Bugku-%E6%9D%82%E9%A1%B9%E7%B3%BB%E5%88%97/)">WP-Bugku-杂项系列</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39629343/article/details/80611614">bugku - 杂项(misc)部分 writeup</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/MOM - 蜡笔小心.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/犯错  - 小眼鑫.mp3"></li>
+                        
+                    
+                        
+                            <li title="2" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/非酋 (王柏鸿 Remix) - 薛明媛.mp3"></li>
+                        
+                    
+                        
+                            <li title="3" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/黑咻狂想曲（Cover：艾索） - 玖肆仟.mp3"></li>
+                        
+                    
+                        
+                            <li title="4" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/忽而今夏（Cover：汪苏泷） - 耳朵玥.mp3"></li>
+                        
+                    
+                        
+                            <li title="5" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/星茶会 - 灰澈.mp3"></li>
+                        
+                    
+                        
+                            <li title="6" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/坠落星空 - 小星星Aurora.mp3"></li>
+                        
+                    
+                        
+                            <li title="7" data-url="https://cdn.jsdelivr.net/gh/GLSakura/CDN@3.1/mp3/最甜情歌 (女生版)  - 一玟.mp3"></li>
+                        
+                    
+                        
+                            <li title="8" data-url="https://api.uomg.com/api/rand.music"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
