@@ -240,36 +240,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【景衡杯】2020极客先锋杯相关咨询</title>
-    <url>/2020/05/17/%E3%80%90%E6%99%AF%E8%A1%A1%E6%9D%AF%E3%80%912020%E6%9E%81%E5%AE%A2%E5%85%88%E9%94%8B%E6%9D%AF%E7%9B%B8%E5%85%B3%E5%92%A8%E8%AF%A2/</url>
-    <content><![CDATA[<h2 id="1-什么是CTF"><a href="#1-什么是CTF" class="headerlink" title="1.什么是CTF"></a>1.什么是CTF</h2><p>CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。</p>
-<h2 id="2-入门CTF，你需要什么"><a href="#2-入门CTF，你需要什么" class="headerlink" title="2.入门CTF，你需要什么"></a>2.入门CTF，你需要什么</h2><ul>
-<li><p>快速学习新事物的能力<br>一个不一样的思考方式<br>一颗乐于解决问题的心<br>一些有趣的网络安全技术<br>一段充实奋斗的时光</p>
-</li>
-<li><p>在这里，我们希望能给予你一些建议：</p>
-<p>善用 Google 搜索可以帮助你更好地提升自己<br>掌握至少一门编程语言，比如 Python<br>实践比什么都要管用<br>保持对技术的好奇与渴望并坚持下去</p>
-</li>
-</ul>
-<h2 id="3-CTF是怎么比赛的"><a href="#3-CTF是怎么比赛的" class="headerlink" title="3.CTF是怎么比赛的"></a>3.CTF是怎么比赛的</h2><p>由于 CTF 的考题范围其实比较宽广，目前也没有太明确的规定界限说会考哪些内容。但是就目前的比赛题型而言的话，主要还是依据常见的 Web 网络攻防、RE 逆向工程、Pwn 二进制漏洞利用、Crypto 密码攻击、Mobile 移动安全 以及 Misc 安全杂项 来进行分类。</p>
-<h3 id="但本次比赛，只会涉及到-Web、Crypto和Misc哈"><a href="#但本次比赛，只会涉及到-Web、Crypto和Misc哈" class="headerlink" title="但本次比赛，只会涉及到 Web、Crypto和Misc哈"></a>但本次比赛，只会涉及到 Web、Crypto和Misc哈</h3><h3 id="Web-网络攻防"><a href="#Web-网络攻防" class="headerlink" title="Web - 网络攻防"></a>Web - 网络攻防</h3><p>主要为 Web 安全中常见的漏洞，如 SQL 注入、XSS、CSRF、文件包含、文件上传、代码审计、PHP 弱类型等，Web 安全中常见的题型及解题思路，并提供了一些常用的工具。</p>
-<h3 id="Crypto-密码攻击"><a href="#Crypto-密码攻击" class="headerlink" title="Crypto - 密码攻击"></a>Crypto - 密码攻击</h3><p>主要包括古典密码学和现代密码学两部分内容，古典密码学趣味性强，种类繁多，现代密码学安全性高，对算法理解的要求较高。</p>
-<h3 id="Misc-安全杂项"><a href="#Misc-安全杂项" class="headerlink" title="Misc - 安全杂项"></a>Misc - 安全杂项</h3><p>以诸葛建伟翻译的《线上幽灵：世界头号黑客米特尼克自传》和一些典型 MISC 题为切入点，内容主要包括信息搜集、编码分析、取证分析、隐写分析等。</p>
-<h3 id="4-web、Crypto和Misc的详细入门指导请戳我！"><a href="#4-web、Crypto和Misc的详细入门指导请戳我！" class="headerlink" title="4.web、Crypto和Misc的详细入门指导请戳我！"></a>4.<a href="https://glsakura.gitee.io/2020/05/17/%E3%80%90%E6%99%AF%E8%A1%A1%E6%9D%AF%E3%80%912020%E6%9E%81%E5%AE%A2%E5%85%88%E9%94%8B%E6%9D%AF%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/">web、Crypto和Misc的详细入门指导请戳我！</a></h3><h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h2><p>CTF可能门槛比较高，但是入门之后你会发现其乐趣 在学习过程中遇到挫折不要轻易放弃，建议先谷歌查找相关资料，实在查不到再求助他人。 关于如何提问，建议阅读这篇文章：<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md">提问的智慧</a></p>
-<p>有任何问题欢迎到群里或联系协会成员。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
-<li>Q: 要是我技术不好或者基础不太好怎么办？你们会教吗？</li>
-<li>A: 不用担心，我们会根据你们大部分人的基础，给予你们相关资料和并根据本次比赛有针对性的培训。不用担心自己什么都不会，一开始谁都是小白。</li>
-</ul>
-<h3 id="再次提醒：本次比赛，只会涉及到-Web、Crypto和Misc哈"><a href="#再次提醒：本次比赛，只会涉及到-Web、Crypto和Misc哈" class="headerlink" title="再次提醒：本次比赛，只会涉及到 Web、Crypto和Misc哈"></a>再次提醒：本次比赛，只会涉及到 Web、Crypto和Misc哈</h3>]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>景衡杯</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>哀悼日网站全站变灰CSS代码</title>
     <url>/2020/04/04/%E5%93%80%E6%82%BC%E6%97%A5%E7%BD%91%E7%AB%99%E5%85%A8%E7%AB%99%E5%8F%98%E7%81%B0CSS%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<p>今天2020-04-04为了哀悼在抗击新冠肺炎斗争中的牺牲烈士和逝世同胞，不少相关站点都将网站全部变为灰色，以表示哀悼。</p>
@@ -300,6 +270,36 @@
         <tag>css</tag>
         <tag>灰色</tag>
         <tag>网站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【景衡杯】2020极客先锋杯相关咨询</title>
+    <url>/2020/05/17/%E3%80%90%E6%99%AF%E8%A1%A1%E6%9D%AF%E3%80%912020%E6%9E%81%E5%AE%A2%E5%85%88%E9%94%8B%E6%9D%AF%E7%9B%B8%E5%85%B3%E5%92%A8%E8%AF%A2/</url>
+    <content><![CDATA[<h2 id="1-什么是CTF"><a href="#1-什么是CTF" class="headerlink" title="1.什么是CTF"></a>1.什么是CTF</h2><p>CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。</p>
+<h2 id="2-入门CTF，你需要什么"><a href="#2-入门CTF，你需要什么" class="headerlink" title="2.入门CTF，你需要什么"></a>2.入门CTF，你需要什么</h2><ul>
+<li><p>快速学习新事物的能力<br>一个不一样的思考方式<br>一颗乐于解决问题的心<br>一些有趣的网络安全技术<br>一段充实奋斗的时光</p>
+</li>
+<li><p>在这里，我们希望能给予你一些建议：</p>
+<p>善用 Google 搜索可以帮助你更好地提升自己<br>掌握至少一门编程语言，比如 Python<br>实践比什么都要管用<br>保持对技术的好奇与渴望并坚持下去</p>
+</li>
+</ul>
+<h2 id="3-CTF是怎么比赛的"><a href="#3-CTF是怎么比赛的" class="headerlink" title="3.CTF是怎么比赛的"></a>3.CTF是怎么比赛的</h2><p>由于 CTF 的考题范围其实比较宽广，目前也没有太明确的规定界限说会考哪些内容。但是就目前的比赛题型而言的话，主要还是依据常见的 Web 网络攻防、RE 逆向工程、Pwn 二进制漏洞利用、Crypto 密码攻击、Mobile 移动安全 以及 Misc 安全杂项 来进行分类。</p>
+<h3 id="但本次比赛，只会涉及到-Web、Crypto和Misc哈"><a href="#但本次比赛，只会涉及到-Web、Crypto和Misc哈" class="headerlink" title="但本次比赛，只会涉及到 Web、Crypto和Misc哈"></a>但本次比赛，只会涉及到 Web、Crypto和Misc哈</h3><h3 id="Web-网络攻防"><a href="#Web-网络攻防" class="headerlink" title="Web - 网络攻防"></a>Web - 网络攻防</h3><p>主要为 Web 安全中常见的漏洞，如 SQL 注入、XSS、CSRF、文件包含、文件上传、代码审计、PHP 弱类型等，Web 安全中常见的题型及解题思路，并提供了一些常用的工具。</p>
+<h3 id="Crypto-密码攻击"><a href="#Crypto-密码攻击" class="headerlink" title="Crypto - 密码攻击"></a>Crypto - 密码攻击</h3><p>主要包括古典密码学和现代密码学两部分内容，古典密码学趣味性强，种类繁多，现代密码学安全性高，对算法理解的要求较高。</p>
+<h3 id="Misc-安全杂项"><a href="#Misc-安全杂项" class="headerlink" title="Misc - 安全杂项"></a>Misc - 安全杂项</h3><p>以诸葛建伟翻译的《线上幽灵：世界头号黑客米特尼克自传》和一些典型 MISC 题为切入点，内容主要包括信息搜集、编码分析、取证分析、隐写分析等。</p>
+<h3 id="4-web、Crypto和Misc的详细入门指导请戳我！"><a href="#4-web、Crypto和Misc的详细入门指导请戳我！" class="headerlink" title="4.web、Crypto和Misc的详细入门指导请戳我！"></a>4.<a href="https://glsakura.gitee.io/2020/05/17/%E3%80%90%E6%99%AF%E8%A1%A1%E6%9D%AF%E3%80%912020%E6%9E%81%E5%AE%A2%E5%85%88%E9%94%8B%E6%9D%AF%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/">web、Crypto和Misc的详细入门指导请戳我！</a></h3><h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h2><p>CTF可能门槛比较高，但是入门之后你会发现其乐趣 在学习过程中遇到挫折不要轻易放弃，建议先谷歌查找相关资料，实在查不到再求助他人。 关于如何提问，建议阅读这篇文章：<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md">提问的智慧</a></p>
+<p>有任何问题欢迎到群里或联系协会成员。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>Q: 要是我技术不好或者基础不太好怎么办？你们会教吗？</li>
+<li>A: 不用担心，我们会根据你们大部分人的基础，给予你们相关资料和并根据本次比赛有针对性的培训。不用担心自己什么都不会，一开始谁都是小白。</li>
+</ul>
+<h3 id="再次提醒：本次比赛，只会涉及到-Web、Crypto和Misc哈"><a href="#再次提醒：本次比赛，只会涉及到-Web、Crypto和Misc哈" class="headerlink" title="再次提醒：本次比赛，只会涉及到 Web、Crypto和Misc哈"></a>再次提醒：本次比赛，只会涉及到 Web、Crypto和Misc哈</h3>]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>景衡杯</tag>
       </tags>
   </entry>
   <entry>
